@@ -328,11 +328,13 @@
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
+                    {% if user.foto %}
                     <img alt="Image placeholder" src="{{user.foto.url}}">
+                    {% endif %}
                   </span>
                   <div class="media-body  ml-2  d-none d-lg-block" style="line-height: 1;">
                     <span class="mb-0 text-sm  font-weight-bold">{{user.first_name}} {{user.last_name}}</span><br />
-                    <span class="mb-0 text-sm  font-weight-bold" style="font-size: .7rem !important;color: #ffffff70;">{{user.curso}}</span><br />
+                    <span class="mb-0 text-sm  font-weight-bold" style="font-size: .7rem !important;color: #ffffff70;">matrícula: {{user.matricula}}</span><br />
                   </div>
                 </div>
               </a>

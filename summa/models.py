@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 from uuid import uuid4
+from summa.manager import UserManager
 
 
 def get_file_path(_instance, filename):
@@ -121,10 +122,15 @@ class Aluno(AbstractUser):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     matricula = models.CharField(unique=True, max_length=55)
+    email = models.EmailField('Email', max_length=155, unique=True)
     foto = models.FileField('Foto', null=True, blank=True, upload_to=get_file_path)
     curso = models.ForeignKey(Curso, blank=True, null=True, on_delete=models.DO_NOTHING)
 
+    objects = UserManager()
+
     USERNAME_FIELD = 'matricula'
+
+    REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = 'Aluno'

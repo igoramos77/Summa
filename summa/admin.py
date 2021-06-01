@@ -2,16 +2,10 @@ from django.contrib import admin
 from . import models
 
 
-# Register your models here.
-
-@admin.register(models.Destination)
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('id',)
-
-
-@admin.register(models.Aluno)
+@admin.register(models.Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('id', 'matricula', 'create_at')
+    exclude = ('password',)
 
 
 @admin.register(models.Estado)
@@ -31,7 +25,7 @@ class CampusAdmin(admin.ModelAdmin):
 
 @admin.register(models.Curso)
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'minimo_categorias', 'create_at')
+    list_display = ('id', 'nome', 'create_at')
 
 
 @admin.register(models.CategoriaAtividadeComplementar)

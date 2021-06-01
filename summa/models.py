@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from uuid import uuid4
 from summa.manager import UserManager
 
@@ -8,12 +8,6 @@ def get_file_path(_instance, filename):
     ext = filename.split('.')[-1]
     filename = f'{uuid4()}.{ext}'
     return filename
-
-
-class Destination(models.Model):
-    place = models.CharField(max_length=100)
-    desc = models.TextField()
-    img = models.ImageField(upload_to='pics')
 
 
 class CategoriaAtividadeComplementar(models.Model):
@@ -85,7 +79,6 @@ class Campus(models.Model):
 class Curso(models.Model):
     external_id = models.UUIDField(default=uuid4, editable=False)
     nome = models.CharField('Nome', max_length=55)
-    minimo_categorias = models.IntegerField('Quantidade Mínima de Categorias')
     campus = models.ForeignKey(Campus, on_delete=models.DO_NOTHING)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -116,15 +109,18 @@ class CategoriaCurso(models.Model):
         return f"{self.categoria_atividade_complementar}"
 
 
-#   class Aluno(models.Model):
-class Aluno(AbstractUser):
+#   class Usuario(models.Model):
+class Usuario(AbstractUser):
     external_id = models.UUIDField(default=uuid4, editable=False)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    username = None
+    first_name = models.CharField('Nome', max_length=55)
+    last_name = models.CharField('Sobrenome', max_length=155)
     matricula = models.CharField(unique=True, max_length=55)
     email = models.EmailField('Email', max_length=155, unique=True)
     foto = models.FileField('Foto', null=True, blank=True, upload_to=get_file_path)
-    curso = models.ForeignKey(Curso, blank=True, null=True, on_delete=models.DO_NOTHING)
+    curso = models.ForeignKey(Curso, blank=False, null=True, on_delete=models.DO_NOTHING)
 
     objects = UserManager()
 
@@ -133,8 +129,8 @@ class Aluno(AbstractUser):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = 'Aluno'
-        verbose_name_plural = 'Alunos'
+        verbose_name = 'Usuário'
+        verbose_name_plural = 'Usuarios'
         ordering = ['id']
 
     def __str__(self):
@@ -158,14 +154,14 @@ class Empresa(models.Model):
 
 class AtividadeComplementar(models.Model):
     external_id = models.UUIDField(default=uuid4, editable=False)
-    aluno = models.ForeignKey(Aluno, null=True, related_name='aluno', on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(Usuario, null=True, related_name='usuario', on_delete=models.DO_NOTHING)
     categoria = models.ForeignKey(CategoriaAtividadeComplementar, on_delete=models.DO_NOTHING)
     descricao = models.CharField('Descrição', max_length=255)
     empresa = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING)
     carga_horaria_informada = models.IntegerField('Carga Horária Informada')
     carga_horaria_integralizada = models.IntegerField('Carga Horária Integralizada', null=True, blank=True)
     justificativa = models.TextField('justificativa', max_length=500, blank=True, null=True)
-    certificado_img = models.FileField('Certificado', null=True, blank=True, upload_to=get_file_path)
+    certificado_img = models.FileField('Certificado', upload_to=get_file_path)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

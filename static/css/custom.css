@@ -1,0 +1,11 @@
+.inpts-login {
+    padding: 0 .75rem !important;
+}
+
+.navbar-brand img {
+    height: 50px !important;
+}
+
+.navbar-vertical .navbar-brand-img, .navbar-vertical .navbar-brand > img {
+    max-height: 3rem !important;
+}

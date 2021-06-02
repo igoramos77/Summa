@@ -6,8 +6,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
 
-from django.contrib.auth import get_user_model
-
 
 def login(request):
     if request.method == "POST":

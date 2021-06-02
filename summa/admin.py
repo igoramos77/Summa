@@ -5,7 +5,7 @@ from . import models
 @admin.register(models.Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('id', 'matricula', 'create_at')
-    exclude = ('password',)
+    #   exclude = ('password',)
 
 
 @admin.register(models.Estado)

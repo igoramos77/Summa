@@ -13,7 +13,6 @@ def get_file_path(_instance, filename):
 class CategoriaAtividadeComplementar(models.Model):
     external_id = models.UUIDField(default=uuid4, editable=False)
     macroatividades = models.CharField('Macroatividades', max_length=55)
-    carga_horaria_maxima_categoria = models.IntegerField('Carga Horária Máxima da Categoria para este Curso')
     descricao = models.TextField('Descrição', max_length=500, blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -79,6 +78,7 @@ class Campus(models.Model):
 class Curso(models.Model):
     external_id = models.UUIDField(default=uuid4, editable=False)
     nome = models.CharField('Nome', max_length=55)
+    qtd_horas_conclusao = models.IntegerField('Quantidade mínima de horas para obtenção do diploma', )
     campus = models.ForeignKey(Campus, on_delete=models.DO_NOTHING)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -159,9 +159,15 @@ class AtividadeComplementar(models.Model):
     descricao = models.CharField('Descrição', max_length=255)
     empresa = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING)
     carga_horaria_informada = models.IntegerField('Carga Horária Informada')
-    carga_horaria_integralizada = models.IntegerField('Carga Horária Integralizada', null=True, blank=True)
+    carga_horaria_integralizada = models.IntegerField('Carga Horária Integralizada', default=0, null=True, blank=True)
     justificativa = models.TextField('justificativa', max_length=500, blank=True, null=True)
     certificado_img = models.FileField('Certificado', upload_to=get_file_path)
+    STATUS = (
+        ('em validação', 'em validação'),
+        ('aprovado', 'aprovado'),
+        ('recusado', 'recusado'),
+    )
+    status = models.CharField('Status', max_length=20, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

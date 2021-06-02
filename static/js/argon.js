@@ -60,11 +60,11 @@ var Layout = (function() {
             unpinSidenav()
         }
 
-        $(window).resize(function() {
+        /* $(window).resize(function() {
             if( $('body').hasClass('g-sidenav-show') && !$('body').hasClass('g-sidenav-pinned')) {
                 $('body').removeClass('g-sidenav-show').addClass('g-sidenav-hidden');
             }
-        })
+        }) */
     }
 
     if($(window).width() < 1200){

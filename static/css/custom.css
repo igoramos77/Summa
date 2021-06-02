@@ -9,3 +9,7 @@
 .navbar-vertical .navbar-brand-img, .navbar-vertical .navbar-brand > img {
     max-height: 3rem !important;
 }
+
+.status-aproved {
+    background: green !important;
+}

@@ -29838,3 +29838,30 @@ input.datetimepicker[data-color='yellow'] + .bootstrap-datetimepicker-widget.dro
 {
     background: transparent;
 }
+
+.status-aproved {
+    background: #5ed4ac;
+    line-height: 1.5;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    color: #fff;
+    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.status-declined {
+    background: #f55045;
+    line-height: 1.5;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    color: #fff;
+    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.status-pending {
+    background: #ff9c07;
+    line-height: 1.5;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    color: #fff;
+    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}

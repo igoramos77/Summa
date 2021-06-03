@@ -114,7 +114,7 @@ class CategoriaCurso(models.Model):
 
 #   class Usuario(models.Model):
 class Usuario(AbstractUser):
-    external_id = models.UUIDField(default=uuid4, editable=False)
+    external_id = models.UUIDField('Hash Usuário', default=uuid4,)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     username = None
@@ -130,6 +130,7 @@ class Usuario(AbstractUser):
     USERNAME_FIELD = 'matricula'
 
     REQUIRED_FIELDS = []
+
 
     class Meta:
         verbose_name = 'Usuário'

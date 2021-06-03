@@ -50,14 +50,14 @@ class IndexView(TemplateView):
                                             .order_by('create_at')
 
         context['data_graph_months'] = AtividadeComplementar.objects \
-                                    .extra({"date": """strftime('%%d/%%m/%%Y', create_at)"""}) \
+                                    .extra({"date": """strftime('%%m/%%Y', create_at)"""}) \
                                     .filter(usuario=context['current_user']) \
                                     .annotate(month=ExtractMonth('create_at')).order_by() \
                                     .values('date') \
                                     .annotate(total=Count('*')) \
 
         for test in context['data_graph_months']:
-            test['date'] = datetime.strptime(test['date'], '%d/%m/%Y')
+            test['date'] = datetime.strptime(test['date'], '%m/%Y')
                                         
         return context
 

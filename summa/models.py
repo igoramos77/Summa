@@ -62,7 +62,10 @@ class Campus(models.Model):
     bairro = models.CharField('Bairro', max_length=55)
     cidade = models.CharField('Cidade', max_length=55)
     estado = models.ForeignKey(Estado, on_delete=models.DO_NOTHING)
+    telefone = models.CharField('Telefone', max_length=16)
     instituicao = models.ForeignKey(Instituicao, related_name='campus', on_delete=models.DO_NOTHING)
+    logo = models.FileField('Logo Instituição', upload_to=get_file_path)
+    modelo_certificado = models.FileField('Imagem de fundo certificado (1080x755 px)', upload_to=get_file_path)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -138,7 +141,7 @@ class Usuario(AbstractUser):
 
 
 class Empresa(models.Model):
-    cnpj = models.IntegerField('CNPJ', primary_key=True)
+    cnpj = models.CharField('CNPJ', primary_key=True, unique=True, max_length=18)
     razao_social = models.CharField('Razão Social', max_length=255)
     nome_fantasia = models.CharField('Nome Fantasia', max_length=155, null=True, blank=True)
     telefone = models.CharField('Telefone', max_length=16, null=True, blank=True)
@@ -161,13 +164,14 @@ class AtividadeComplementar(models.Model):
     carga_horaria_informada = models.IntegerField('Carga Horária Informada')
     carga_horaria_integralizada = models.IntegerField('Carga Horária Integralizada', default=0, null=True, blank=True)
     justificativa = models.TextField('justificativa', max_length=500, blank=True, null=True)
-    certificado_img = models.FileField('Certificado', upload_to=get_file_path)
+    certificado = models.FileField('Certificado', upload_to=get_file_path)
     STATUS = (
         ('em validação', 'em validação'),
         ('aprovado', 'aprovado'),
         ('recusado', 'recusado'),
     )
-    status = models.CharField('Status', max_length=20, choices=STATUS)
+    status = models.CharField('Status', default='em validação', max_length=20, choices=STATUS)
+    is_active = models.BooleanField('Ativo', default=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

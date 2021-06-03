@@ -41,7 +41,7 @@ class CategoriaCursoAdmin(admin.ModelAdmin):
 
 @admin.register(models.AtividadeComplementar)
 class AtividadeComplementarAdmin(admin.ModelAdmin):
-    list_display = ('id', 'descricao', 'carga_horaria_informada', 'carga_horaria_integralizada', 'create_at')
+    list_display = ('id', 'descricao', 'carga_horaria_informada', 'carga_horaria_integralizada', 'status', 'is_active', 'create_at')
 
 
 @admin.register(models.Empresa)

@@ -1,0 +1,166 @@
+body {
+    text-transform: uppercase;
+}
+
+.serif {
+	font-family: serif;
+}
+
+.texto {
+	margin: 0;
+}
+
+.negrito {
+	font-weight: 700
+}
+
+.negrito-2 {
+	font-weight: 600
+}
+
+.sublinhar {
+	text-decoration: underline;
+}
+
+.center {
+	text-align: center
+}
+
+.esquerda {
+	text-align: right;
+}
+
+.overline {
+	text-decoration: overline;
+}
+
+.quebra_linha {
+	display: block;
+}
+
+
+/*configurações de fonts*/
+
+.font-17 {
+	font-size: 17px;
+}
+
+.font-24 {
+	font-size: 24px;
+}
+
+.font-36 {
+	font-size: 36px;
+}
+
+.font-40 {
+	font-size: 40px;
+}
+
+
+/*confifurações de margin*/
+
+.padding_top_35 {
+	padding-top: 70px;
+}
+
+.margin_bottom_35 {
+	margin-bottom: 35px;
+}
+
+.altura_linhas_19 {
+	line-height: 19px;
+}
+
+.altura_linhas_35 {
+	line-height: 35px;
+}
+
+.altura_linhas_25 {
+	line-height: 25px;
+}
+
+.caixa_informacoes_aluno_cea {
+	font-size: 22px;
+	text-align: justify;
+	padding: 0 4rem;
+}
+
+.caixa_informacoes_aluno_cea_2 {
+	font-size: 22px;
+	text-align: justify;
+	padding-right: 46px;
+	padding-left: 46px;
+}
+
+.caixa_informacoes_aluno_cea p {
+	margin-top: 5px;
+}
+
+.assinatura_cea {
+	line-height: 22px;
+	font-size: 22px;
+	padding-top: 22px;
+}
+
+.titulo_cea_2 {
+	margin-top: 35px margin-bottom: 35px
+}
+
+.data_entrega_cea {
+	padding-top: 25px;
+	padding-bottom: 43px;
+}
+
+
+/*configurações de exibição da pagina e conteudo*/
+
+.certificado_conteudo {
+	-webkit-print-color-adjust: exact;
+	background-repeat: no-repeat;
+	height: 755px;
+	width: 1080px;
+	background-repeat: no-repeat
+}
+
+.certificado_pagina {
+	padding: 5mm;
+	width: 1085px;
+	margin: 30px auto;
+	box-shadow: .5px .5px 7px #000;
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+
+/*area de configuraçõa da pagina*/
+
+@page {
+	size: 297mm 210mm;
+	margin: 5mm;
+	size: landscape
+}
+
+body {
+	margin: 0;
+	padding: 0px !important;
+	font-family: 'Open Sans', sans-serif
+}
+
+p {
+	margin: 0px;
+}
+
+
+/*SEMPRE DEIXAR NO FIM DO CODIGO configuração de impresão*/
+
+@media print {
+	.certificado_pagina {
+		padding: 0;
+		background: transparent;
+		margin: 0;
+		border-radius: 0;
+		box-shadow: none;
+		-webkit-box-shadow: none
+	}
+}

@@ -135,7 +135,7 @@
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
       <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;">
           <div class="progress-box">
             <div class="progress pgress mb-0">
               <div class="progress-bar pb bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{percent_conslusion|floatformat:'0'}}%">
@@ -145,222 +145,63 @@
             <a href="{% url 'certificado' %}" class="btn btn-success btn-wh pulse" target="_blank">Obter declaração de conclusão <i class="ni ni-trophy ml-1"></i></a>
           </div>
           <!-- Navbar links -->
-          <ul class="navbar-nav align-items-center  ml-md-auto ">
-            <li class="nav-item d-xl-none">
-              <!-- Sidenav toggler -->
-              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item d-sm-none">
-              <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                <i class="ni ni-zoom-split-in"></i>
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-bell-55"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
-                <!-- Dropdown header -->
-                <div class="px-3 py-3">
-                  <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.</h6>
-                </div>
-                <!-- List group -->
-                <div class="list-group list-group-flush">
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="{% static 'img/theme/team-1.jpg' %}" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">{{user.first_name}}</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>2 hrs ago</small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="{% static 'img/theme/team-2.jpg' %}" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">{{user.first_name}}</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>3 hrs ago</small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="{% static 'img/theme/team-3.jpg' %}" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">{{user.first_name}}</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>5 hrs ago</small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">Your posts have been liked a lot.</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="{% static 'img/theme/team-4.jpg' %}" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">{{user.first_name}}</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>2 hrs ago</small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="{% static 'img/theme/team-5.jpg' %}" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">{{user.first_name}}</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>3 hrs ago</small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <!-- View all -->
-                <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-ungroup"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
-                <div class="row shortcuts px-4">
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-red">
-                      <i class="ni ni-calendar-grid-58"></i>
-                    </span>
-                    <small>Calendar</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
-                      <i class="ni ni-email-83"></i>
-                    </span>
-                    <small>Email</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-info">
-                      <i class="ni ni-credit-card"></i>
-                    </span>
-                    <small>Payments</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-green">
-                      <i class="ni ni-books"></i>
-                    </span>
-                    <small>Reports</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
-                      <i class="ni ni-pin-3"></i>
-                    </span>
-                    <small>Maps</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                      <i class="ni ni-basket"></i>
-                    </span>
-                    <small>Shop</small>
-                  </a>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
-            <li class="nav-item dropdown">
-              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="media align-items-center">
-                  <span class="avatar avatar-sm rounded-circle">
-                    {% if user.foto %}
-                    <img alt="Image placeholder" src="{{user.foto.url}}">
-                    {% endif %}
-                  </span>
-                  <div class="media-body  ml-2  d-none d-lg-block" style="line-height: 1;">
-                    <span class="mb-0 text-sm  font-weight-bold">{{user.first_name}} {{user.last_name}}</span><br />
-                    <span class="mb-0 text-sm  font-weight-bold" style="font-size: .7rem !important;color: #ffffff70;">matrícula: {{user.matricula}}</span><br />
+          <div class="menu-and-profile">
+            <ul class="navbar-nav align-items-center  ml-md-auto ">
+              <li class="nav-item d-xl-none">
+                <!-- Sidenav toggler -->
+                <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
                   </div>
                 </div>
-              </a>
-              <div class="dropdown-menu  dropdown-menu-right ">
-                <div class="dropdown-header noti-title">
-                  <h6 class="text-overflow m-0">Bem vindo!</h6>
+              </li>
+            </ul>
+            <ul class="navbar-nav align-items-center ml-md-0 ">
+              <li class="nav-item dropdown">
+                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="media align-items-center">
+                    <span class="avatar avatar-sm rounded-circle">
+                      {% if user.foto %}
+                      <img alt="Image placeholder" src="{{user.foto.url}}">
+                      {% endif %}
+                    </span>
+                    <div class="media-body  ml-2  d-none d-lg-block" style="line-height: 1;">
+                      <span class="mb-0 text-sm  font-weight-bold">{{user.first_name}} {{user.last_name}}</span><br />
+                      <span class="mb-0 text-sm  font-weight-bold" style="font-size: .7rem !important;color: #ffffff70;">matrícula: {{user.matricula}}</span><br />
+                    </div>
+                  </div>
+                </a>
+                <div class="dropdown-menu  dropdown-menu-right ">
+                  <div class="dropdown-header noti-title">
+                    <h6 class="text-overflow m-0">Bem vindo!</h6>
+                  </div>
+                  <a href="#!" class="dropdown-item">
+                    <i class="ni ni-single-02"></i>
+                    <span>Meu perfil</span>
+                  </a>
+                  <a href="#!" class="dropdown-item">
+                    <i class="ni ni-settings-gear-65"></i>
+                    <span>Settings</span>
+                  </a>
+                  <a href="#!" class="dropdown-item">
+                    <i class="ni ni-calendar-grid-58"></i>
+                    <span>Activity</span>
+                  </a>
+                  <a href="#!" class="dropdown-item">
+                    <i class="ni ni-support-16"></i>
+                    <span>Support</span>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="logout" class="dropdown-item">
+                    <i class="ni ni-user-run"></i>
+                    <span>Logout</span>
+                  </a>
                 </div>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-single-02"></i>
-                  <span>Meu perfil</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-settings-gear-65"></i>
-                  <span>Settings</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-calendar-grid-58"></i>
-                  <span>Activity</span>
-                </a>
-                <a href="#!" class="dropdown-item">
-                  <i class="ni ni-support-16"></i>
-                  <span>Support</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="logout" class="dropdown-item">
-                  <i class="ni ni-user-run"></i>
-                  <span>Logout</span>
-                </a>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
@@ -395,14 +236,13 @@
                       <span class="h2 font-weight-bold mb-0 count">{{total_horas_integralizadas}}</span><span class="ml-1">/{{qtd_min_horas}}</span>
                     </div>
                     <div class="col-auto">
-                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                        <i class="ni ni-time-alarm"></i>
+                      <div class="icon icon-shape bg-gradient-success text-white rounded-circle shadow">
+                        <i class="ni ni-paper-diploma"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success"><i class="fa fa-arrow-up"></i> <span class="count">{{percent_conslusion|floatformat:"0"}}</span>%</span>
-                    <span class="text-nowrap">do total do curso</span>
+                    <span class="text-nowrap"><a href="#">Ver todas</a></span>
                   </p>
                 </div>
               </div>
@@ -423,8 +263,7 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
+                    <span class="text-nowrap"><a href="#">Ver todas</a></span>
                   </p>
                 </div>
               </div>
@@ -435,40 +274,38 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Aguardando avaliação</h5>
-                      <span class="h2 font-weight-bold mb-0 count">50</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                        <i class="ni ni-money-coins"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-3">
-              <div class="card card-stats">
-                <!-- Card body -->
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Envios negados</h5>
-                      <span class="h2 font-weight-bold mb-0 count">5</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Aguardando validação</h5>
+                      <span class="h2 font-weight-bold mb-0 count">{{total_atividades_aguardando_aprovacao}}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                        <i class="ni ni-chart-bar-32"></i>
+                        <i class="ni ni-time-alarm"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
+                    <span class="text-nowrap"><a href="#">Ver todas</a></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-3">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Atividades recusadas</h5>
+                      <span class="h2 font-weight-bold mb-0 count">{{total_atividades_recusadas}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-danger text-white rounded-circle shadow">
+                        <i class="ni ni-archive-2"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-nowrap"><a href="#">Ver todas</a></span>
                   </p>
                 </div>
               </div>
@@ -486,21 +323,14 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-light text-uppercase ls-1 mb-1">Visão geral</h6>
-                  <h5 class="h3 text-white mb-0">Histórico de submissões</h5>
+                  <h5 class="h3 text-white mb-0">Histórico de envios</h5>                  
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
-                        <span class="d-md-none">M</span>
-                      </a>
-                    </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
-                        <span class="d-md-none">W</span>
-                      </a>
+                    <li class="nav-item mr-2 mr-md-0">
+                      <select class="year-select">
+                        <option value="2021">2021</option>
+                      </select>
                     </li>
                   </ul>
                 </div>
@@ -520,8 +350,8 @@
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h5 class="h3 mb-0">Total orders</h5>
+                  <h6 class="text-uppercase text-muted ls-1 mb-1">Mês a mês</h6>
+                  <h5 class="h3 mb-0">Total de horas</h5>
                 </div>
               </div>
             </div>
@@ -540,7 +370,7 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Últimas submissões</h3>
+                  <h3 class="mb-0">Últimos envios</h3>
                 </div>
                 <div class="col text-right">
                   <a href="#!" class="btn btn-sm btn-primary">Ver todas</a>
@@ -555,6 +385,7 @@
                     <th scope="col">Descrição</th>
                     <th scope="col" class="text-center">Carga horária<br />Informada</th>
                     <th scope="col" class="text-center">Carga horária<br />Integralizada</th>
+                    <th scope="col" class="text-center">Data envio</th>
                     <th scope="col" class="text-center">Status</th>
                   </tr>
                 </thead>
@@ -583,6 +414,10 @@
                     </td>
 
                     <td class="text-center">
+                      {{atividade.create_at|date:"d M, Y"}}
+                    </td>
+
+                    <td class="text-center">
                       {% if atividade.status == 'aprovado' %}
                         <span class="status-aproved" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">{{atividade.status}}</span>
                       {% endif %}
@@ -607,10 +442,10 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
+                  <h3 class="mb-0">Categorias Integralizadas</h3>
                 </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                <div class="col-4 text-right">
+                  <a href="#!" class="btn btn-sm btn-primary">Ver todas</a>
                 </div>
               </div>
             </div>
@@ -772,6 +607,81 @@
       });
     });
   </script>
+
+  <script>
+    //
+// Sales chart
+//
+
+var SalesChart = (function() {
+
+// Variables
+
+var $chart = $('#chart-sales-dark');
+
+
+// Methods
+
+function init($chart) {
+
+  var salesChart = new Chart($chart, {
+      type: 'line',
+      options: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              lineWidth: 1,
+              color: Charts.colors.gray[900],
+              zeroLineColor: Charts.colors.gray[900]
+            },
+            ticks: {
+              callback: function(value) {
+                return value;
+              },
+              min: 0,
+              stepSize: 1,
+              display: true,
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            label: function(item, data) {
+              var label = [data.datasets[item.datasetIndex].label || ''];
+              var yLabel = item.yLabel;
+              var content = '';
+
+              content += `Envios: ${yLabel}`;
+              return content;
+            }
+          }
+        }
+      },
+      data: {
+        labels: [{%for label in data_graph_months%}'{{label.date|date:'M'}}',{% endfor %}],
+        datasets: [{
+          label: 'Envios',
+          data: [{%for label in data_graph_months%}'{{label.total}}',{% endfor %}]
+        }]
+      }
+    });
+
+    // Save to jQuery object
+
+    $chart.data('chart', salesChart);
+
+  };
+
+
+  // Events
+
+  if ($chart.length) {
+    init($chart);
+  }
+
+  })();
+</script> 
+  
 
 
   {% for atividade in list_atividades_complementares %}

@@ -37,15 +37,15 @@
                     </div>
                     <div class="box">
                         <p class="padding_top_35 margin_bottom_35 center">
-                            <span class="font-31 negrito-2  quebra_linha">CERTIFICADO DE CONCLUSÃO DE HORAS COMPLEMENTARES</span>
+                            <span class="font-31 negrito-2  quebra_linha" style="font-weight: bold;">CERTIFICADO DE CONCLUSÃO DE HORAS COMPLEMENTARES</span>
                         </p>
                         <div class="caixa_informacoes_aluno_cea serif">
-                            <p class="esquerda">Certificamos que de acordo com a legislação em vigor, o (a) aluno (a)</p>
                             <p>
-                                <span class="sublinhar negrito">ROMULO MENDES SOARES JUNIOR, </span> Filho(a) de <span class="sublinhar negrito">ROMULO MENDES SOARES</span> e <span class="sublinhar negrito">WANYLZE ALBERTO BORGES</span> Natural de <span class="sublinhar negrito">MACAPÁ</span> UF <span class="sublinhar negrito"> AP</span> Nascido(a) em <span class="sublinhar negrito">01/10/1993</span> concluiu no ano letivo de 2017 o 1º ANO do ENSINO MÉDIO.
+                              <strong>Certificamos que de acordo com a legislação em vigor, o (a) aluno (a)</strong> <br>
+                              <strong>{{user.first_name}} {{user.last_name}},</strong> MATRICULA Nº {{user.matricula}}, concluiu todas as {{qtd_min_horas}} horas necessárias para a conclusão do curso <strong>{{user.curso.nome}} na {{user.curso.campus.instituicao}}.</strong>
                             </p>
                             <p>
-                                Assim, conferimos-lhe o presente <span class="negrito">Certificado</span>, de acordo com a Lei 9.394/96, para usufruir de seus direitos em âmbito nacional.
+                              Assim, caso tenha concluído sua graduação, conferimos-lhe o direito de resgatar o <span class="negrito">Certificado de Conclusão de Curso.</span>
                             </p>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="box">
                         <div class="caixa_informacoes_aluno_cea">
                             <p class="esquerda data_entrega_cea">
-                                MACAPÁ - AP, 10 DE NOVEMBRO DE 2017
+                                {{user.curso.campus.cidade}} - {{user.curso.campus.estado.uf}}, {% now "j \d\e F \d\e Y" %}
                             </p>
                         </div>
                     </div>
@@ -77,12 +77,12 @@
                     <div class="box">
                         <div class="assinatura_cea serif">
                             <p class="negrito center">____________________________</p>
-                            <p class="negrito center">Diretora</p>
+                            <p class="negrito center">Diretor(a)</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <p style="text-transform: capitalize; font-size: 12px; margin: 15px 0 0 15px;color: #282a2d;font-weight: 700;">hash: {{user.external_id}}</p>
+            <p class="hash">hash: {{user.external_id}}</p>
         </div>
     </div>
 </div>

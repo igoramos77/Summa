@@ -30055,3 +30055,14 @@ body.modal-open > :not(.modal) {
 .pb {
     border-radius: 8px;
 }
+
+.menu-and-profile {
+    display: flex;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+    .progress-box {
+        width: 70%;
+    }
+}

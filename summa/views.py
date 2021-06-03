@@ -19,7 +19,12 @@ class IndexView(TemplateView):
         context = super(IndexView, self).get_context_data(**kwargs)
 
         context['current_user'] = Usuario.objects.get(matricula=self.request.user)
+
         context['total_atividades_submetidas'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).count()
+
+        context['total_atividades_aguardando_aprovacao'] = AtividadeComplementar.objects.filter(usuario=context['current_user'], status='em validação').count()
+        
+        context['total_atividades_recusadas'] = AtividadeComplementar.objects.filter(usuario=context['current_user'], status='recusado').count()
 
         if AtividadeComplementar.objects.filter(usuario=context['current_user'], status='aprovado').aggregate(Sum('carga_horaria_integralizada')).get('carga_horaria_integralizada__sum', 0.00) is None:
             context['total_horas_integralizadas'] = 0
@@ -35,7 +40,28 @@ class IndexView(TemplateView):
 
         context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')[:5]
 
+        context['graph_historico_labels'] = AtividadeComplementar.objects.filter(usuario=context['current_user']) \
+                                            .all().order_by('create_at').values_list('create_at', flat=True)
+
         return context
+
+    def get_labels(self):
+        labels = []
+        queryset = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('create_at')
+        for curso in queryset:
+            labels.append(curso.nome)
+        return labels
+
+    def get_data(self):
+        resultado = []
+        dados = []
+        queryset = Curso.objects.order_by('id').annotate(total=Count('aluno'))
+        for linha in queryset:
+            dados.append(int(linha.total))
+        resultado.append(dados)
+        return resultado
+
+
 class CertificadoView(TemplateView):
     template_name = 'certificado.html'
 

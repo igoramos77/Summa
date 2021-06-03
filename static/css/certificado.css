@@ -144,11 +144,19 @@ body {
 body {
 	margin: 0;
 	padding: 0px !important;
-	font-family: 'Open Sans', sans-serif
+	font-family: serif !important;
 }
 
 p {
 	margin: 0px;
+}
+
+.hash {
+    text-transform: capitalize;
+    font-size: 12px;
+    margin: 15px 0 0 15px;
+    color: #282a2d;
+    font-weight: 700;
 }
 
 

@@ -1,5 +1,12 @@
 <form method="POST" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="save btn btn-default">Save</button>
+    {{ form_add_atividade_complementar.as_p }}
+    <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Enviar!</button>
 </form>
+{% if messages %}
+  {% for m in messages %}
+      <div class="alert alert-{{ m.extra_tags }}">
+          <strong>{{ m }}</strong>
+      </div>
+  {% endfor %}
+{% endif %}

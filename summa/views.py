@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.db.models import Sum
+from django.urls import reverse_lazy
 
 from django.db.models.functions import TruncMonth, ExtractDay, ExtractMonth, ExtractYear
 from django.db.models import Count
@@ -17,10 +18,6 @@ def errorlog(request):
     messages.info(request, "Please login to view the content")
     return redirect("/")
 
-
-def form_send_atividade_complementar(request):
-    atividade = AtividadeComplementarForm()
-    return render(request, 'index.html', {'form': atividade})
 
 
 class IndexView(TemplateView):
@@ -67,6 +64,9 @@ class IndexView(TemplateView):
         for test in context['data_graph_months']:
             test['date'] = datetime.strptime(test['date'], '%m/%Y')
 
+        #form
+        context['form_add_atividade_complementar'] = AtividadeComplementarForm() 
+
         return context
 
 
@@ -110,3 +110,26 @@ class MeusEnviosView(TemplateView):
         context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')
 
         return context
+
+
+class SubmeterCertificadoView(FormView):
+    template_name = 'enviar-certificado.html'
+    form_class = AtividadeComplementarForm
+    success_url = reverse_lazy('enviar-certificado')
+
+    def get_context_data(self, **kwargs):
+        context = super(SubmeterCertificadoView, self).get_context_data(**kwargs)
+        
+        #   form
+        context['form_add_atividade_complementar'] = AtividadeComplementarForm() 
+        return context
+
+    def form_valid(self, form, *args, **kwargs):
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(self.request, 'Atividade cadastrada com sucesso enviado com sucesso!', extra_tags='success')
+        return super(SubmeterCertificadoView, self).form_valid(form, *args, **kwargs)
+
+    def form_invalid(self, form, *args, **kwargs):
+        messages.error(self.request, 'Falha ao enviar e-mail', extra_tags='danger')
+        return super(SubmeterCertificadoView, self).form_invalid(form, *args, **kwargs)

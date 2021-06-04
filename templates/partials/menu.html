@@ -14,7 +14,7 @@
         <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            {{ request.path }}
+            <!-- {{ request.path }} -->
             
             {% if request.get_full_path == '/dashboard/' %}
             <a class="nav-link active" href="{% url 'index' %}">
@@ -25,6 +25,7 @@
               <span class="nav-link-text">Dashboard</span>
             </a>
           </li>
+
           <li class="nav-item">
             {% if request.get_full_path == '/dashboard/meus-envios' %}
             <a class="nav-link active" href="{% url 'meus-envios' %}">
@@ -34,9 +35,14 @@
               <i class="ni ni-send"></i>
               <span class="nav-link-text">Meus envios</span>
             </a>
-          </li> 
+          </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'meus-envios' %}">
+            {% if request.get_full_path == '/dashboard/enviar-certificado' %}
+            <a class="nav-link active" href="{% url 'enviar-certificado' %}">
+              {% else %}
+            <a class="nav-link" href="{% url 'enviar-certificado' %}">
+            {% endif %}
               <i class="ni ni-image"></i>
               <span class="nav-link-text">Submeter certificado</span>
             </a>
@@ -52,13 +58,13 @@
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a class="nav-link" href="#" target="_blank">
-              <i class="ni ni-spaceship"></i>
-              <span class="nav-link-text">Universidade de Vassouras</span>
+              <i class="ni ni-chat-round"></i>
+              <span class="nav-link-text">Fale Conosco</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" target="_blank">
-              <i class="ni ni-palette"></i>
+              <i class="ni ni-curved-next"></i>
               <span class="nav-link-text">Links úteis</span>
             </a>
           </li>

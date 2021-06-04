@@ -44,10 +44,11 @@ class IndexView(TemplateView):
 
         context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')[:5]
 
-        context['graph_historico_labels'] = AtividadeComplementar.objects \
-                                            .filter(usuario=context['current_user']) \
-                                            .values('create_at') \
-                                            .order_by('create_at')
+        context['list_group_atividades_complementares'] = AtividadeComplementar.objects \
+                                                        .filter(usuario=context['current_user']) \
+                                                        .values('categoria__macroatividades') \
+                                                        .annotate(count=Count('categoria__macroatividades')).order_by() \
+                                                        .values('categoria__macroatividades', 'count')[:5]
 
         context['data_graph_months'] = AtividadeComplementar.objects \
                                     .extra({"date": """strftime('%%m/%%Y', create_at)"""}) \
@@ -74,5 +75,17 @@ class CertificadoView(TemplateView):
         context['total_horas_integralizadas'] = AtividadeComplementar.objects.filter(usuario=context['current_user'], status='aprovado').aggregate(Sum('carga_horaria_integralizada')).get('carga_horaria_integralizada__sum', 0.00)
 
         context['qtd_min_horas'] = Curso.objects.values_list('qtd_horas_conclusao', flat=True).filter(usuario__matricula=context['current_user']).first()
+
+        return context
+
+class MeusEnviosView(TemplateView):
+    template_name = 'meus-envios.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MeusEnviosView, self).get_context_data(**kwargs)
+
+        context['current_user'] = Usuario.objects.get(matricula=self.request.user)
+
+        context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')
 
         return context

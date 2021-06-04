@@ -29,75 +29,10 @@
   <!-- end menu -->
   <!-- Main content -->
   <div class="main-content" id="panel">
-    <!-- Topnav -->
-    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;">
-          <div class="progress-box">
-          {% if percent_conslusion >= 100 %}
-            <a href="{% url 'certificado' %}" class="btn btn-success btn-wh pulse" target="_blank">Obter declaração de conclusão <i class="ni ni-trophy ml-1"></i></a>
-          {% else %}
-            <div class="progress pgress mb-0">
-              <div class="progress-bar pb bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{percent_conslusion|floatformat:'0'}}%">
-              </div>
-            </div>
-            <p class="mb-0">Meu progresso <span class="count">{{percent_conslusion|floatformat:'0'}}</span>% <i class="ml-1 ni ni-trophy"></i></p>
-          {% endif %}
-          </div>
-          <!-- Navbar links -->
-          <div class="menu-and-profile">
-            <ul class="navbar-nav align-items-center  ml-md-auto ">
-              <li class="nav-item d-xl-none">
-                <!-- Sidenav toggler -->
-                <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
-                  <div class="sidenav-toggler-inner">
-                    <i class="sidenav-toggler-line"></i>
-                    <i class="sidenav-toggler-line"></i>
-                    <i class="sidenav-toggler-line"></i>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <ul class="navbar-nav align-items-center ml-md-0 ">
-              <li class="nav-item dropdown">
-                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <div class="media align-items-center">
-                    <span class="avatar avatar-sm rounded-circle">
-                      {% if user.foto %}
-                      <img alt="Image placeholder" src="{{user.foto.url}}">
-                      {% endif %}
-                    </span>
-                    <div class="media-body  ml-2  d-none d-lg-block" style="line-height: 1;">
-                      <span class="mb-0 text-sm  font-weight-bold">{{user.first_name}} {{user.last_name}}</span><br />
-                      <span class="mb-0 text-sm  font-weight-bold" style="font-size: .7rem !important;color: #ffffff70;">matrícula: {{user.matricula}}</span><br />
-                    </div>
-                  </div>
-                </a>
-                <div class="dropdown-menu  dropdown-menu-right ">
-                  <div class="dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Bem vindo!</h6>
-                  </div>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ni ni-single-02"></i>
-                    <span>Meu perfil</span>
-                  </a>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ni ni-settings-gear-65"></i>
-                    <span>Configurações</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="logout" class="dropdown-item">
-                    <i class="ni ni-user-run"></i>
-                    <span>Sair</span>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <!-- Header -->
+    <!-- start navbar -->
+    {% include 'partials/navbar.html' %}
+    <!-- end navbar -->
+
     <!-- Header -->
     <div class="header bg-primary pb-6">
       <div class="container-fluid">
@@ -368,28 +303,7 @@
         </div>
       </div>
       <!-- Footer -->
-      <footer class="footer pt-0">
-        <div class="row align-items-center justify-content-lg-between">
-          <div class="col-lg-6">
-            <div class="copyright text-center  text-lg-left  text-muted">
-              <script>var data = new Date(); document.write(data.getFullYear())</script>&copy; <a href="#" class="font-weight-bold ml-1" target="_blank">Summa - todos os direitos reservados.</a>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-              <li class="nav-item">
-                <a href="#" class="nav-link" target="_blank">Suporte</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link" target="_blank">Projeto</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link" target="_blank">Universidade de Vassouras</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      {% include 'partials/footer.html' %}
     </div>
   </div>
   <!-- Argon Scripts -->

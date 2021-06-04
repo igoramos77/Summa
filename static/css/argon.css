@@ -30090,6 +30090,16 @@ thead tr {
     border-radius: 50%;
 }
 
+.ddd {
+    transition: all .2s ease-in-out;
+}
+
+.ddd:hover {
+    color: #fff !important;
+    transform: scale(1.05);
+    opacity: .8;
+}
+
 /* MOBILE */
 @media (max-width: 480px) {
     .progress-box {

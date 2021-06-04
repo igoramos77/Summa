@@ -48,7 +48,7 @@
               </nav>
             </div>
             <div class="col-lg-6 col-5 text-right">
-              <a href="#" class="btn btn-sm btn-neutral">+ Submeter atividade complementar</a>
+              <a href="#" class="btn btn-sm btn-neutral" data-toggle="modal" data-target="#modalSubmit">+ Submeter atividade complementar</a>
             </div>
           </div>
           <!-- Card stats -->
@@ -495,6 +495,29 @@ function init($chart) {
   </div>
 <!-- end Modal -->
 {% endfor %}
+
+<!-- start Modal (Submit Atividade Complementar) -->
+<div class="modal fade" id="modalSubmit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          titleeee
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% include 'forms/add-atividade-complementar.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Enviar!</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal -->
 
 </body>
 

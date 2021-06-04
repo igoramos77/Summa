@@ -8,12 +8,19 @@ from django.db.models import Count
 
 from datetime import datetime
 
-from .models import Usuario, AtividadeComplementar, Curso
+from summa.models import Usuario, AtividadeComplementar, Curso
+
+from summa.forms import AtividadeComplementarForm
 
 
 def errorlog(request):
     messages.info(request, "Please login to view the content")
     return redirect("/")
+
+
+def form_send_atividade_complementar(request):
+    atividade = AtividadeComplementarForm()
+    return render(request, 'index.html', {'form': atividade})
 
 
 class IndexView(TemplateView):
@@ -27,7 +34,7 @@ class IndexView(TemplateView):
         context['total_atividades_submetidas'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).count()
 
         context['total_atividades_aguardando_aprovacao'] = AtividadeComplementar.objects.filter(usuario=context['current_user'], status='em validação').count()
-        
+
         context['total_atividades_recusadas'] = AtividadeComplementar.objects.filter(usuario=context['current_user'], status='recusado').count()
 
         if AtividadeComplementar.objects.filter(usuario=context['current_user'], status='aprovado').aggregate(Sum('carga_horaria_integralizada')).get('carga_horaria_integralizada__sum', 0.00) is None:
@@ -59,7 +66,7 @@ class IndexView(TemplateView):
 
         for test in context['data_graph_months']:
             test['date'] = datetime.strptime(test['date'], '%m/%Y')
-                                        
+
         return context
 
 
@@ -78,6 +85,7 @@ class CertificadoView(TemplateView):
 
         return context
 
+
 class MeusEnviosView(TemplateView):
     template_name = 'meus-envios.html'
 
@@ -93,12 +101,12 @@ class MeusEnviosView(TemplateView):
             context['total_horas_integralizadas'] = AtividadeComplementar.objects.filter(usuario=context['current_user'], status='aprovado').aggregate(Sum('carga_horaria_integralizada')).get('carga_horaria_integralizada__sum', 0.00)
 
         context['qtd_min_horas'] = Curso.objects.values_list('qtd_horas_conclusao', flat=True).filter(usuario__matricula=context['current_user']).first()
-        
+
         if context['total_horas_integralizadas'] is not None:
             context['percent_conslusion'] = context['total_horas_integralizadas'] * 100 / context['qtd_min_horas']
         else:
             context['percent_conslusion'] = 0
-        
+
         context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')
 
         return context

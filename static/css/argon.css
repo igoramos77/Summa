@@ -5402,7 +5402,7 @@ input[type='button'].btn-block
 }
 .custom-file-input:lang(en) ~ .custom-file-label::after
 {
-    content: 'Browse';
+    content: 'Buscar';
 }
 .custom-file-input ~ .custom-file-label[data-browse]::after
 {
@@ -5444,7 +5444,7 @@ input[type='button'].btn-block
     height: calc(1.5em + 1.25rem);
     padding: .625rem .75rem;
 
-    content: 'Browse';
+    content: 'Buscar';
 
     color: #8898aa;
     border-left: inherit;

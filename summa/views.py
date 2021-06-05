@@ -127,9 +127,9 @@ class SubmeterCertificadoView(FormView):
     def form_valid(self, form, *args, **kwargs):
         instance = form.save(commit=False)
         instance.save()
-        messages.success(self.request, 'Atividade cadastrada com sucesso enviado com sucesso!', extra_tags='success')
+        messages.success(self.request, 'Atividade Complementar enviada com sucesso! 👌', extra_tags='success')
         return super(SubmeterCertificadoView, self).form_valid(form, *args, **kwargs)
 
     def form_invalid(self, form, *args, **kwargs):
-        messages.error(self.request, 'Falha ao enviar e-mail', extra_tags='danger')
+        messages.error(self.request, 'Falha ao submeter o certificado', extra_tags='danger')
         return super(SubmeterCertificadoView, self).form_invalid(form, *args, **kwargs)

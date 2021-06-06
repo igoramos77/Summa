@@ -34,11 +34,6 @@ class CategoriaAtividadeComplementarAdmin(admin.ModelAdmin):
     list_display = ('id', 'macroatividades', 'create_at')
 
 
-@admin.register(models.CategoriaCurso)
-class CategoriaCursoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'curso', 'create_at')
-
-
 @admin.register(models.AtividadeComplementar)
 class AtividadeComplementarAdmin(admin.ModelAdmin):
     list_display = ('id', 'descricao', 'carga_horaria_informada', 'carga_horaria_integralizada', 'status', 'is_active', 'create_at')

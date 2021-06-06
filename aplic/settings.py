@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'summa.apps.SummaConfig',
     'rest_framework',
+    'smart_selects',
 ]
 
 MIDDLEWARE = [
@@ -62,12 +63,28 @@ WSGI_APPLICATION = 'aplic.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
+"""
+# Postgre local (criar banco e usuário previamente)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'summa',
+        'USER': 'postgres',
+        'PASSWORD': 'docker',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -123,3 +140,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser',
     ),
 }
+
+USE_DJANGO_JQUERY = True
+

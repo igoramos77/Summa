@@ -1,4 +1,5 @@
 from uuid import uuid4
+from smart_selects.db_fields import ChainedForeignKey
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -85,6 +86,7 @@ class Curso(models.Model):
     nome = models.CharField('Nome', max_length=55)
     qtd_horas_conclusao = models.IntegerField('Quantidade mínima de horas para obtenção do diploma', )
     campus = models.ForeignKey(Campus, on_delete=models.DO_NOTHING)
+    categoria_atividade_complementar = models.ManyToManyField(CategoriaAtividadeComplementar)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -95,23 +97,6 @@ class Curso(models.Model):
 
     def __str__(self):
         return f"{self.nome}"
-
-
-#   Classe associativa
-class CategoriaCurso(models.Model):
-    external_id = models.UUIDField(default=uuid4, editable=False)
-    curso = models.ForeignKey(Curso, null=True, on_delete=models.DO_NOTHING)
-    categoria_atividade_complementar = models.ManyToManyField(CategoriaAtividadeComplementar)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = 'Categoria Curso'
-        verbose_name_plural = 'Categorias Cursos'
-        ordering = ['id']
-
-    def __str__(self):
-        return f"{self.categoria_atividade_complementar}"
 
 
 #   class Usuario(models.Model):
@@ -132,7 +117,6 @@ class Usuario(AbstractUser):
     USERNAME_FIELD = 'matricula'
 
     REQUIRED_FIELDS = []
-
 
     class Meta:
         verbose_name = 'Usuário'
@@ -161,9 +145,22 @@ class Empresa(models.Model):
 class AtividadeComplementar(models.Model):
     external_id = models.UUIDField(default=uuid4, editable=False)
     usuario = models.ForeignKey(Usuario, null=True, related_name='usuario', on_delete=models.DO_NOTHING)
-    categoria = models.ForeignKey(CategoriaAtividadeComplementar, on_delete=models.DO_NOTHING)
+    curso = ChainedForeignKey(Curso,
+                              chained_field="usuario",
+                              chained_model_field="usuario",
+                              show_all=False,
+                              auto_choose=True,
+                              sort=False,)
+
+    categoria = ChainedForeignKey(CategoriaAtividadeComplementar,
+                                  chained_field="curso",
+                                  chained_model_field="curso",
+                                  show_all=False,
+                                  auto_choose=False,
+                                  sort=False)
     descricao = models.CharField('Descrição', max_length=255)
-    empresa = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING)
+    empresa = models.CharField('Empresa/Instituição', max_length=155)
+    cnpj = models.CharField('CNPJ', max_length=18, blank=True)
     carga_horaria_informada = models.IntegerField('Carga Horária Informada')
     carga_horaria_integralizada = models.IntegerField('Carga Horária Integralizada', default=0, null=True, blank=True)
     justificativa = models.TextField('justificativa', max_length=500, blank=True, null=True)

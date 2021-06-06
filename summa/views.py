@@ -19,7 +19,6 @@ def errorlog(request):
     return redirect("/")
 
 
-
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -48,11 +47,11 @@ class IndexView(TemplateView):
 
         context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')[:5]
 
-        context['list_group_atividades_complementares'] = AtividadeComplementar.objects \
+        """context['list_group_atividades_complementares'] = AtividadeComplementar.objects \
                                                         .filter(usuario=context['current_user']) \
                                                         .values('categoria__macroatividades') \
                                                         .annotate(count=Count('categoria__macroatividades')).order_by() \
-                                                        .values('categoria__macroatividades', 'count')[:5]
+                                                        .values('categoria__macroatividades', 'count')[:5]"""
 
         context['data_graph_months'] = AtividadeComplementar.objects \
                                     .extra({"date": """strftime('%%m/%%Y', create_at)"""}) \
@@ -115,7 +114,7 @@ class MeusEnviosView(TemplateView):
 class SubmeterCertificadoView(FormView):
     template_name = 'enviar-certificado.html'
     form_class = AtividadeComplementarForm
-    success_url = reverse_lazy('enviar-certificado')
+    success_url = reverse_lazy('meus-envios')
 
     def get_context_data(self, **kwargs):
         context = super(SubmeterCertificadoView, self).get_context_data(**kwargs)
@@ -131,5 +130,5 @@ class SubmeterCertificadoView(FormView):
         return super(SubmeterCertificadoView, self).form_valid(form, *args, **kwargs)
 
     def form_invalid(self, form, *args, **kwargs):
-        messages.error(self.request, 'Falha ao submeter o certificado', extra_tags='danger')
+        messages.error(self.request, 'Falha ao submeter o certificado. 😢', extra_tags='danger')
         return super(SubmeterCertificadoView, self).form_invalid(form, *args, **kwargs)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from summa.models import (AtividadeComplementar, Campus,
-                          CategoriaAtividadeComplementar, CategoriaCurso,
+                          CategoriaAtividadeComplementar,
                           Curso, Empresa, Estado, Instituicao, Usuario)
 
 
@@ -19,12 +19,6 @@ class CampusSerializer(serializers.ModelSerializer):
 class CategoriaAtividadeComplementarSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoriaAtividadeComplementar
-        fields = '__all__'
-
-
-class CategoriaCursoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CategoriaCurso
         fields = '__all__'
 
 

@@ -1,109 +1,132 @@
+<style>
+  .hide-inpts {
+    display: none !important;
+    visibility: hidden;
+  }
+</style>
+
+<!-- import do select com ajax abaixo -->
+{{ form.media.js }}
+
+<!-- <form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form_add_atividade_complementar.as_p }}
+    <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Enviar!</button>
+</form> -->
+
 {% for m in messages %}
     <div class="pulse alert alert-{{ m.extra_tags }}">
         <strong>{{ m }}</strong>
     </div>
 {% endfor %}
-
-<form method="POST" class="post-form" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form_add_atividade_complementar.as_p }}
-    <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Enviar!</button>
-</form>
-
 <div class="card-body">
-    <form>
-      <h6 class="heading-small text-muted mb-4">Informações </h6>
-      <div class="pl-lg-4">
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <h6 class="heading-small text-muted mb-4">Preencha o formulário abaixo</h6>
+      <div>
         <div class="row">
           <div class="col-lg-12">
-            <div class="form-group">
-              <label class="form-control-label" for="usuario">Usuário</label>
-              <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Username" value="{{user}}" disabled>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="form-group">
-              <label class="form-control-label" for="descricao">Descrição</label>
-              <input type="text" name="descricao" id="descricao" class="form-control" placeholder="Ex: Curso de Informática básica" />
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label class="form-control-label" for="id_categoria">Categoria</label>
-              <select class="form-control" id="id_categoria" required>
-                {%for category in form.categoria %}
-                    {{category}}
-                {% endfor %}
+            <div class="form-group hide-inpts">
+              <label for="id_usuario">Usuario:</label>
+              <select name="usuario" id="id_usuario" required>
+                <option value="{{user.id}}">{{user.id}} - {{user.first_name}} {{user.last_name}}</option>
               </select>
             </div>
           </div>
+          <div class="col-lg-12 hide-inpts">
+            <div class="form-group">
+              <label for="id_curso">Curso:</label>
+              <select name="curso" required="" id="id_curso" data-chainfield="usuario" data-url="/chaining/filter/summa/Curso/usuario/summa/AtividadeComplementar/curso" data-value="null" data-auto_choose="true" data-empty_label="--------" class="chained-fk">
+                <option value="">--------</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-control-label" for="descricao">Descrição*</label>
+              <input type="text" name="descricao" id="descricao" class="form-control" placeholder="Ex: Curso de Informática básica" required/>
+            </div>
+          </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label class="form-control-label" for="id_categoria">Empresa/Instituição</label>
-              <input type="text" name="empresa" id="empresa" class="form-control" placeholder="Nome da Empresa" />
+              <label class="form-control-label" for="id_categoria">Categoria:*</label>
+              <select name="categoria" required="" id="id_categoria" data-chainfield="curso" data-url="/chaining/filter/summa/CategoriaAtividadeComplementar/curso/summa/AtividadeComplementar/categoria" data-value="null" data-auto_choose="false" data-empty_label="--------" class="chained-fk">
+                <option value="">--------</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label class="form-control-label" for="id_categoria">Empresa/Instituição*</label>
+              <input type="text" name="empresa" id="empresa" class="form-control" placeholder="Razão Social" required/>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label class="form-control-label" for="cnpj">CNPJ</label>
+              <input type="text" name="cnpj" id="id_cnpj" class="form-control" placeholder="CNPJ" maxlength="18" />
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-2">
             <div class="form-group">
-              <label class="form-control-label" for="carga_horaria_informada">Carga horária</label>
-              <input type="number" id="carga_horaria_informada" name="carga_horaria_informada" class="form-control" placeholder="Número de horas">
-              <input type="hidden" id="carga_horaria_integralizada" name="carga_horaria_integralizada" class="form-control" value="{{form.carga_horaria_integralizada.value}}" disabled>
+              <label class="form-control-label" for="carga_horaria_informada">Carga horária*</label>
+              <input type="number" id="carga_horaria_informada" name="carga_horaria_informada" class="form-control" placeholder="Número de horas" required/>
             </div>
           </div>
-          <div class="col-lg-9">
-            <label class="form-control-label" for="carga_horaria_informada">Certificado</label>
+          <div class="col-lg-12 hide-inpts">
+            <div class="form-group">
+              <label class="form-control-label" for="carga_horaria_informada">Carga horária Integralizada</label>
+              <input disabled type="text" id="carga_horaria_integralizada" name="carga_horaria_integralizada" class="form-control" value="{{form.carga_horaria_integralizada.value}}" disabled>
+            </div>
+          </div>
+          <div class="col-lg-12 hide-inpts">
+            <div class="form-group">
+              <label class="form-control-label" for="id_justificativa">Carga horária Integralizada</label>
+              <textarea class="form-control" name="justificativa" id="id_justificativa" cols="30" rows="4" maxlength="500"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-10">
+            <label class="form-control-label" for="carga_horaria_informada">Certificado*</label>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="certificado" name="certificado" lang="en">
+              <input type="file" class="custom-file-input" id="certificado" name="certificado" lang="en" accept="image/jpeg,image/gif,image/png,application/pdf" required>
               <label class="custom-file-label" for="certificado"></label>
             </div>
           </div>
-        </div>
-      </div>
-      <hr class="my-4">
-      <!-- Address -->
-      <h6 class="heading-small text-muted mb-4">Contact information</h6>
-      <div class="pl-lg-4">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label class="form-control-label" for="input-address">Address</label>
-              <input id="input-address" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
-            </div>
+          <div class="col-lg-6 hide-inpts">
+            <label class="form-control-label" for="id_status">Status*</label>
+            <select name="status" id="id_status" class="form-control" required>
+              <option value="em validação" selected>em validação</option>
+            </select>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label class="form-control-label" for="input-city">City</label>
-              <input type="text" id="input-city" class="form-control" placeholder="City" value="New York">
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label class="form-control-label" for="input-country">Country</label>
-              <input type="text" id="input-country" class="form-control" placeholder="Country" value="United States">
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label class="form-control-label" for="input-country">Postal code</label>
-              <input type="number" id="input-postal-code" class="form-control" placeholder="Postal code">
-            </div>
+          <div class="col-lg-6 hide-inpts">
+            <label class="form-control-label" for="id_status">active?*</label>
+            <input type="checkbox" name="is_active" id="id_is_active" checked required>
           </div>
         </div>
       </div>
       <hr class="my-4">
-      <!-- Description -->
-      <h6 class="heading-small text-muted mb-4">About me</h6>
-      <div class="pl-lg-4">
-        <div class="form-group">
-          <label class="form-control-label">About Me</label>
-          <textarea rows="4" class="form-control" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-        </div>
-      </div>
+      <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Enviar certificado para análise!</button>
     </form>
   </div>
+
+<script>
+  // ADD CLASS A TODOS OS INPUTS (STYLING)
+  $('input[type=text], select').addClass('form-control');
+
+  //SELECTIONA O USER AUTOMATICAMENTE
+  $("#id_usuario>option[value='{{user.id}}']").attr('selected', true);
+
+</script>
+
+<script type="text/javascript">
+  // VALIDA O CNPJ E CRIA A MASK
+	document.getElementById('id_cnpj').addEventListener('input', function (e) {
+      var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
+      e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + '.' + x[3] + '/' + x[4] + (x[5] ? '-' + x[5] : '');
+    });
+</script>
+
 {% if messages %}
 {% endif %}

@@ -1,13 +1,12 @@
 from rest_framework import viewsets
 from summa.models import (AtividadeComplementar, Campus,
-                          CategoriaAtividadeComplementar, CategoriaCurso,
+                          CategoriaAtividadeComplementar,
                           Curso, Empresa, Estado, Instituicao, Usuario)
 
 from .serializers import (AtividadeComplementarSerializer, CampusSerializer,
-                          CategoriaAtividadeComplementarSerializer,
-                          CategoriaCursoSerializer, CursoSerializer,
-                          EmpresaSerializer, EstadoSerializer,
-                          InstituicaoSerializer, UsuarioSerializer)
+                         CategoriaAtividadeComplementarSerializer, CursoSerializer,
+                         EmpresaSerializer, EstadoSerializer,
+                         InstituicaoSerializer, UsuarioSerializer)
 
 
 class AtividadeComplementarViewSet(viewsets.ModelViewSet):
@@ -23,11 +22,6 @@ class CampusViewSet(viewsets.ModelViewSet):
 class CategoriaAtividadeComplementarViewSet(viewsets.ModelViewSet):
     queryset = CategoriaAtividadeComplementar.objects.all()
     serializer_class = CategoriaAtividadeComplementarSerializer
-
-
-class CategoriaCursoViewSet(viewsets.ModelViewSet):
-    queryset = CategoriaCurso.objects.all()
-    serializer_class = CategoriaCursoSerializer
 
 
 class CursoViewSet(viewsets.ModelViewSet):

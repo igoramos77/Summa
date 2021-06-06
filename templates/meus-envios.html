@@ -53,6 +53,11 @@
               <a href="{% url 'enviar-certificado' %}" class="btn btn-sm btn-neutral">+ Submeter atividade complementar</a>
             </div>
           </div>
+          {% for m in messages %}
+              <div class="pulse alert alert-{{ m.extra_tags }}">
+                  <strong>{{ m }}</strong>
+              </div>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -81,6 +86,14 @@
                 </thead>
                 <tbody class="list">
                   {% for atividade in list_atividades_complementares %}
+                    {{atividade }}
+                    {% if list_atividades_complementares == 0 %}
+                      <tr>
+                        <th>
+                          <span>Você ainda não cadastrou nenhuma atividade complementar! 😢</span>
+                        </th>
+                      </tr>
+                    {% endif %}
                   <tr>
                     <th>
                       {{forloop.revcounter}}

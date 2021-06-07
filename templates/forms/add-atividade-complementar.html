@@ -55,16 +55,16 @@
               </select>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label class="form-control-label" for="id_categoria">Empresa/Instituição*</label>
-              <input type="text" name="empresa" id="empresa" class="form-control" placeholder="Razão Social" required/>
-            </div>
-          </div>
           <div class="col-lg-2">
             <div class="form-group">
               <label class="form-control-label" for="cnpj">CNPJ</label>
-              <input type="text" name="cnpj" id="id_cnpj" class="form-control" placeholder="CNPJ" maxlength="18" />
+              <input type="text" name="cnpj" id="id_cnpj" class="form-control cnpj" placeholder="CNPJ" maxlength="18" required />
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label class="form-control-label" for="id_categoria">Empresa/Instituição*</label>
+              <input type="text" name="empresa" id="empresa" class="form-control empresa" placeholder="Razão Social" required/>
             </div>
           </div>
         </div>
@@ -126,6 +126,30 @@
       var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
       e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + '.' + x[3] + '/' + x[4] + (x[5] ? '-' + x[5] : '');
     });
+</script>
+
+<script>
+
+  $("#id_cnpj").keyup(function(){
+    if (this.value.length === 18) {
+      var empresa = $.getJSON(`https://minhareceita.org/${this.value}`, function() {
+        console.log( empresa.responseJSON );
+        $('#empresa').val(empresa.responseJSON.razao_social);
+        $('#empresa').prop("readonly", true);
+
+      })
+      .fail(function() {
+        console.log( "error: CNPJ NAO ENCONTRADO" );
+        $('#empresa').prop("readonly", false);
+      })
+    }
+    else {
+      $('#empresa').val('');
+    }
+  });
+
+
+
 </script>
 
 {% if messages %}

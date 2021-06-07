@@ -334,19 +334,14 @@
   </script>
 
   <script>
-    //
-// Sales chart
-//
 
 var SalesChart = (function() {
 
 // Variables
-
 var $chart = $('#chart-sales-dark');
 
 
 // Methods
-
 function init($chart) {
 
   var salesChart = new Chart($chart, {
@@ -408,7 +403,6 @@ function init($chart) {
 </script> 
   
 
-
   {% for atividade in list_atividades_complementares %}
   <!-- start Modal (Detalhes da atividade) -->
   <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -424,40 +418,51 @@ function init($chart) {
         </div>
         <div class="modal-body">
           <div class="modal-grid-datails">
-            <div>
-              <h5>Descrição</h5>
-              <p>{{atividade.descricao}}</p>
+
+            <div class="row">
+
+              <div class="col-12">
+                <h5>Descrição</h5>
+                <p>{{atividade.descricao}}</p>
+              </div>
+
+              <div class="col-12">
+                <h5>Categoria</h5>
+                <p>{{atividade.categoria}}</p>
+             </div>
             </div>
-            <div>
-              <h5>Categoria</h5>
-              <p>{{atividade.categoria}}</p>
+
+
+            <div class="row">
+              <div class="col-6">
+                <h5>Instituição</h5>
+                <p>{{atividade.empresa}}</p>
+              </div>
+              <div class="col-6">
+                <h5>Cnpj</h5>
+                <p>{{atividade.cnpj}}</p>
+              </div>
             </div>
-            <div>
-              <h5>Instituição</h5>
-              <p>{{atividade.empresa}}</p>
-            </div>
-            <div>
-              <h5>Cnpj</h5>
-              <p>{{atividade.cnpj}}</p>
-            </div>
-            
+
 
             {% if atividade.justificativa %}
-            <div>
-              <h5>Justificativa</h5>
-              <p>{{atividade.justificativa}}</p>
+            <div class="row">
+              <div class="col-12">
+                <h5>Justificativa</h5>
+                <p>{{atividade.justificativa}}</p>
+              </div>
             </div>
             {% endif %}
 
-            <aside>
-              <div>
+            <div class="row">
+              <div class="col-6">
                 <h5>Certificado</h5>
                 <p>
                   <a href="{{atividade.certificado.url}}" target="_blank">visualizar certificado</a>
                 </p>
               </div>
 
-              <div>
+              <div class="col-6">
                 <h5>Status</h5>
                 <p>
                   {% if atividade.status == 'aprovado' %}
@@ -473,10 +478,10 @@ function init($chart) {
                   {% endif %}
                 </p>
               </div>
-            </aside>
+            </div>
             
-            <aside style="margin-top: .75rem;">
-              <div>
+            <div class="row">
+              <div class="col-6">
                 <h5>Data de cadastro</h5>
                 <p>
                   {{atividade.create_at}}
@@ -484,14 +489,14 @@ function init($chart) {
               </div>
               
               {% if atividade.create_at != atividade.update_at %}
-              <div>
+              <div class="col-6">
                 <h5>Última atualização</h5>
                 <p>
                   {{atividade.update_at}}
                 </p>
               </div>
               {% endif %}
-            </aside>
+            </div>
 
           </div>
         </div>

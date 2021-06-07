@@ -71,7 +71,10 @@
               <h3 class="mb-0">Atividades Complementares</h3>
             </div>
 
+            <!-- start LOADER -->
             {% include 'components/loader.html' %}
+            <!-- end LOADER -->
+
             <!-- Light table -->
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -91,7 +94,7 @@
                   {% for atividade in page_obj %}
                   <tr>
                     <th>
-                      {{forloop.revcounter}}
+                      #{{atividade.id}}
                     </th>
                     <th scope="row">
                       <div class="media align-items-center">
@@ -103,7 +106,7 @@
                           {% endif %}
                         </a>
                         <div class="media-body">
-                          <span class="name mb-0 text-sm">{{atividade.descricao|truncatechars_html:40}}</span>
+                          <span class="name mb-0 text-sm clickk" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">{{atividade.descricao|truncatechars_html:40}}</span>
                         </div>
                       </div>
                     </th>
@@ -146,7 +149,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                           <a class="dropdown-item" href="{{atividade.certificado.url}}" target="_blank"> <i class="ni ni-image mr-1"></i> Visualizar certificado</a>
-                          <a class="dropdown-item" href="#"><i class="ni ni-fat-add mr-1"></i> Ver mais detalhes</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}"><i class="ni ni-fat-add mr-1"></i> Ver mais detalhes</a>
                         </div>
                       </div>
                     </td>
@@ -155,8 +158,6 @@
                 </tbody>
               </table>
             </div>
-
-
 
             <!-- Card footer -->
             <div class="card-footer py-4">
@@ -176,6 +177,113 @@
       {% include 'partials/footer.html' %}
     </div>
   </div>
+
+  {% for atividade in list_atividades_complementares %}
+  <!-- start Modal (Detalhes da atividade) -->
+  <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            {{atividade.descricao}}
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-grid-datails">
+
+            <div class="row">
+
+              <div class="col-12">
+                <h5>Descrição</h5>
+                <p>{{atividade.descricao}}</p>
+              </div>
+
+              <div class="col-12">
+                <h5>Categoria</h5>
+                <p>{{atividade.categoria}}</p>
+             </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-6">
+                <h5>Instituição</h5>
+                <p>{{atividade.empresa}}</p>
+              </div>
+              <div class="col-6">
+                <h5>Cnpj</h5>
+                <p>{{atividade.cnpj}}</p>
+              </div>
+            </div>
+
+
+            {% if atividade.justificativa %}
+            <div class="row">
+              <div class="col-12">
+                <h5>Justificativa</h5>
+                <p>{{atividade.justificativa}}</p>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="row">
+              <div class="col-6">
+                <h5>Certificado</h5>
+                <p>
+                  <a href="{{atividade.certificado.url}}" target="_blank">visualizar certificado</a>
+                </p>
+              </div>
+
+              <div class="col-6">
+                <h5>Status</h5>
+                <p>
+                  {% if atividade.status == 'aprovado' %}
+                  <span class="status status-aproved">{{atividade.status}}</span>
+                  {% endif %}
+
+                  {% if atividade.status == 'recusado' %}
+                  <span class="status status-declined">{{atividade.status}}</span>
+                  {% endif %}
+
+                  {% if atividade.status == 'em validação' %}
+                  <span class="status status-pending">{{atividade.status}}</span>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <h5>Data de cadastro</h5>
+                <p>
+                  {{atividade.create_at}}
+                </p>
+              </div>
+
+              {% if atividade.create_at != atividade.update_at %}
+              <div class="col-6">
+                <h5>Última atualização</h5>
+                <p>
+                  {{atividade.update_at}}
+                </p>
+              </div>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="handleShowSupport()"><i class="ni ni-chat-round mr-2"></i> Precisa de suporte?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end Modal -->
+{% endfor %}
+
   <!-- Argon Scripts -->
     <!-- Core -->
     <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>

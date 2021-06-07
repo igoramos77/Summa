@@ -11,7 +11,7 @@ from datetime import datetime
 
 from summa.models import Usuario, AtividadeComplementar, Curso
 
-from summa.forms import AtividadeComplementarForm
+from summa.forms import AtividadeComplementarForm, ProfileForm
 
 
 def errorlog(request):
@@ -47,11 +47,11 @@ class IndexView(TemplateView):
 
         context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')[:5]
 
-        """context['list_group_atividades_complementares'] = AtividadeComplementar.objects \
+        context['list_group_atividades_complementares'] = AtividadeComplementar.objects \
                                                         .filter(usuario=context['current_user']) \
                                                         .values('categoria__macroatividades') \
                                                         .annotate(count=Count('categoria__macroatividades')).order_by() \
-                                                        .values('categoria__macroatividades', 'count')[:5]"""
+                                                        .values('categoria__macroatividades', 'count')[:5]
 
         context['data_graph_months'] = AtividadeComplementar.objects \
                                     .extra({"date": """strftime('%%m/%%Y', create_at)"""}) \
@@ -87,8 +87,8 @@ class CertificadoView(TemplateView):
 
 class MeusEnviosView(ListView):
     template_name = 'meus-envios.html'
-    paginate_by = 3
-    ordering = '-create_at'
+    paginate_by = 6
+    ordering = ['id']
     model = AtividadeComplementar
 
     def get_context_data(self, **kwargs):
@@ -115,7 +115,7 @@ class MeusEnviosView(ListView):
 
     def get_queryset(self, **kwargs):
         current_user = Usuario.objects.get(matricula=self.request.user)
-        return AtividadeComplementar.objects.filter(usuario=current_user).all()
+        return AtividadeComplementar.objects.filter(usuario=current_user).all().order_by('-create_at')
 
 
 class SubmeterCertificadoView(FormView):
@@ -125,6 +125,26 @@ class SubmeterCertificadoView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(SubmeterCertificadoView, self).get_context_data(**kwargs)
+
+        context['current_user'] = Usuario.objects.get(matricula=self.request.user)
+
+        context['total_atividades_submetidas'] = AtividadeComplementar.objects.filter(
+            usuario=context['current_user']).count()
+        if AtividadeComplementar.objects.filter(usuario=context['current_user'], status='aprovado').aggregate(
+                Sum('carga_horaria_integralizada')).get('carga_horaria_integralizada__sum', 0.00) is None:
+            context['total_horas_integralizadas'] = 0
+        else:
+            context['total_horas_integralizadas'] = AtividadeComplementar.objects.filter(
+                usuario=context['current_user'], status='aprovado').aggregate(Sum('carga_horaria_integralizada')).get(
+                'carga_horaria_integralizada__sum', 0.00)
+
+        context['qtd_min_horas'] = Curso.objects.values_list('qtd_horas_conclusao', flat=True).filter(
+            usuario__matricula=context['current_user']).first()
+
+        if context['total_horas_integralizadas'] is not None:
+            context['percent_conslusion'] = context['total_horas_integralizadas'] * 100 / context['qtd_min_horas']
+        else:
+            context['percent_conslusion'] = 0
         
         #   form
         context['form_add_atividade_complementar'] = AtividadeComplementarForm() 
@@ -139,3 +159,27 @@ class SubmeterCertificadoView(FormView):
     def form_invalid(self, form, *args, **kwargs):
         messages.error(self.request, 'Falha ao submeter o certificado. 😢', extra_tags='danger')
         return super(SubmeterCertificadoView, self).form_invalid(form, *args, **kwargs)
+
+
+class PerfilView(FormView):
+    template_name = 'perfil.html'
+    form_class = ProfileForm
+    success_url = reverse_lazy('perfil')
+
+    def get_context_data(self, **kwargs):
+        context = super(PerfilView, self).get_context_data(**kwargs)
+        context['current_user'] = Usuario.objects.get(matricula=self.request.user)
+
+        #   Profile form
+        context['form_edit_profile'] = ProfileForm()
+        return context
+
+    def form_valid(self, form, *args, **kwargs):
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(self.request, 'Perfil autalizado com sucesso! 👌', extra_tags='success')
+        return super(PerfilView, self).form_valid(form, *args, **kwargs)
+
+    def form_invalid(self, form, *args, **kwargs):
+        messages.error(self.request, 'Falha atualizar o perfil. 😢', extra_tags='danger')
+        return super(PerfilView, self).form_invalid(form, *args, **kwargs)

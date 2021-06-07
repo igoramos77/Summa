@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import TemplateView, FormView, ListView
+
 from django.db.models import Sum
 from django.urls import reverse_lazy
 
@@ -171,7 +172,7 @@ class PerfilView(FormView):
         context['current_user'] = Usuario.objects.get(matricula=self.request.user)
 
         #   Profile form
-        context['form_edit_profile'] = ProfileForm()
+        context['form_edit_profile'] = ProfileForm(instance=context['current_user'])
         return context
 
     def form_valid(self, form, *args, **kwargs):
@@ -181,5 +182,5 @@ class PerfilView(FormView):
         return super(PerfilView, self).form_valid(form, *args, **kwargs)
 
     def form_invalid(self, form, *args, **kwargs):
-        messages.error(self.request, 'Falha atualizar o perfil. 😢', extra_tags='danger')
+        messages.error(self.request, 'Ops! Algo deu errado. 😢', extra_tags='danger')
         return super(PerfilView, self).form_invalid(form, *args, **kwargs)

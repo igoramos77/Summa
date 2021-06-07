@@ -111,7 +111,7 @@ class Usuario(AbstractUser):
     last_name = models.CharField('Sobrenome', max_length=155)
     matricula = models.CharField(unique=True, max_length=55)
     email = models.EmailField('Email', max_length=155, unique=True)
-    foto = models.FileField('Foto', null=True, blank=True, upload_to=get_file_path)
+    foto = models.ImageField('Foto', null=True, blank=True, upload_to=get_file_path)
     curso = models.ForeignKey(Curso, blank=False, null=True, on_delete=models.DO_NOTHING)
 
     objects = UserManager()

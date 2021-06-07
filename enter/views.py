@@ -16,7 +16,7 @@ def login(request):
             auth.login(request, user)
             return redirect("dashboard/")
         else:
-            messages.error(request, "Ops! Dados inválidos.")
+            messages.error(request, "Ops! Dados inválidos. 😢")
             return render(request, "index_login.html")
     else:
         return render(request, "index_login.html")

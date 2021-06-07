@@ -11,5 +11,6 @@ class AtividadeComplementarForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Usuario
-        fields = "__all__"
+        #   fields = ['matricula', 'first_name', 'last_name', 'email', 'foto', 'curso']
+        fields = '__all__'
 

@@ -27,10 +27,10 @@
           </li>
 
           <li class="nav-item">
-            {% if request.get_full_path == '/dashboard/meus-envios' %}
-            <a class="nav-link active" href="{% url 'meus-envios' %}">
+            {% if request.get_full_path == '/dashboard/meus-envios/' %}
+            <a class="nav-link active" href="{% url 'meus-envios' id=user.id %}">
             {% else %}
-              <a class="nav-link" href="{% url 'meus-envios' %}">
+              <a class="nav-link" href="{% url 'meus-envios' id=user.id %}">
             {% endif %}
               <i class="ni ni-send"></i>
               <span class="nav-link-text">Meus envios</span>

@@ -66,6 +66,8 @@ class Campus(models.Model):
     cidade = models.CharField('Cidade', max_length=55)
     estado = models.ForeignKey(Estado, on_delete=models.DO_NOTHING)
     telefone = models.CharField('Telefone', max_length=16)
+    site = models.URLField('Site', max_length=155)
+    email = models.EmailField('E-mail', max_length=155, blank=True, null=True)
     instituicao = models.ForeignKey(Instituicao, related_name='campus', on_delete=models.DO_NOTHING)
     logo = models.FileField('Logo Instituição', upload_to=get_file_path)
     modelo_certificado = models.FileField('Imagem de fundo certificado (1080x755 px)', upload_to=get_file_path)

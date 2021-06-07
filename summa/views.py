@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, ListView
 from django.db.models import Sum
 from django.urls import reverse_lazy
 
@@ -85,8 +85,11 @@ class CertificadoView(TemplateView):
         return context
 
 
-class MeusEnviosView(TemplateView):
+class MeusEnviosView(ListView):
     template_name = 'meus-envios.html'
+    paginate_by = 3
+    ordering = '-create_at'
+    model = AtividadeComplementar
 
     def get_context_data(self, **kwargs):
         context = super(MeusEnviosView, self).get_context_data(**kwargs)
@@ -109,6 +112,10 @@ class MeusEnviosView(TemplateView):
         context['list_atividades_complementares'] = AtividadeComplementar.objects.filter(usuario=context['current_user']).all().order_by('-create_at')
 
         return context
+
+    def get_queryset(self, **kwargs):
+        current_user = Usuario.objects.get(matricula=self.request.user)
+        return AtividadeComplementar.objects.filter(usuario=current_user).all()
 
 
 class SubmeterCertificadoView(FormView):

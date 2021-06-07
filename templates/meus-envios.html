@@ -70,6 +70,8 @@
             <div class="card-header border-0">
               <h3 class="mb-0">Atividades Complementares</h3>
             </div>
+
+            {% include 'components/loader.html' %}
             <!-- Light table -->
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -85,7 +87,6 @@
                   </tr>
                 </thead>
                 <tbody class="list">
-                  {% include 'components/loader.html' %}
 
                   {% for atividade in page_obj %}
                   <tr>

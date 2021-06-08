@@ -148,7 +148,7 @@ class SubmeterCertificadoView(FormView):
             context['percent_conslusion'] = 0
         
         #   form
-        context['form_add_atividade_complementar'] = AtividadeComplementarForm() 
+        context['form_add_atividade_complementar'] = AtividadeComplementarForm()
         return context
 
     def form_valid(self, form, *args, **kwargs):

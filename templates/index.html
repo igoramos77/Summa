@@ -43,7 +43,7 @@
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
                 </ol>
               </nav>
             </div>
@@ -502,6 +502,7 @@ function init($chart) {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" onclick="handleShowSupport()"><i class="ni ni-chat-round mr-2"></i> Precisa de suporte?</button>
+          <p>{{user.curso.campus.email}}</p>
         </div>
       </div>
     </div>

@@ -4,12 +4,10 @@
     <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Atualizar perfil!</button>
 </form>
 
-{% for m in messages %}
-    <div class="pulse alert alert-{{ m.extra_tags }}">
-        <strong>{{ m }}</strong>
-    </div>
-{% endfor %}
-
-
 {% if messages %}
+    {% for m in messages %}
+        <div class="pulse alert alert-{{ m.extra_tags }}">
+            <strong>{{ m }}</strong>
+        </div>
+    {% endfor %}
 {% endif %}

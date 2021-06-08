@@ -44,7 +44,3 @@ class AtividadeComplementarAdmin(admin.ModelAdmin):
     list_filter = ('status', 'create_at')
     list_per_page = 15
 
-
-@admin.register(models.Empresa)
-class EmpresaAdmin(admin.ModelAdmin):
-    list_display = ('cnpj', 'razao_social')

@@ -81,15 +81,16 @@
                 </div>
               </div>
               <div class="text-center">
-                <h5 class="h3">{{user.first_name}} {{user.last_name}}</h5>
-                <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>{{user.email}}
+                <h5 class="h3 mb-0">{{user.get_full_name}}</h5>
+                <div class="h5 font-weight-300 mt-0">
+                  <i class="ni location_pin"></i>{{user.email}}
                 </div>
-                <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>{{user.curso}}
-                </div>
+                {{user.matricula}}
                 <div>
-                  <i class="ni education_hat mr-2"></i>{{user.curso.campus.instituicao}}
+                  <i class="mt-5 ni education_hat"></i>{{user.curso.campus.instituicao}}
+                </div>
+                <div class="h5 mt-0">
+                  <i class="ni business_briefcase-24"></i>{{user.curso}}
                 </div>
               </div>
             </div>

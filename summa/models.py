@@ -129,21 +129,6 @@ class Usuario(AbstractUser):
         return f"{self.matricula}"
 
 
-class Empresa(models.Model):
-    cnpj = models.CharField('CNPJ', primary_key=True, unique=True, max_length=18)
-    razao_social = models.CharField('Razão Social', max_length=255)
-    nome_fantasia = models.CharField('Nome Fantasia', max_length=155, null=True, blank=True)
-    telefone = models.CharField('Telefone', max_length=16, null=True, blank=True)
-
-    class Meta:
-        verbose_name = 'Empresa'
-        verbose_name_plural = 'Empresas'
-        ordering = ['razao_social']
-
-    def __str__(self):
-        return f"{self.cnpj} / {self.razao_social}"
-
-
 class AtividadeComplementar(models.Model):
     external_id = models.UUIDField(default=uuid4, editable=False)
     usuario = models.ForeignKey(Usuario, null=True, related_name='usuario', on_delete=models.DO_NOTHING)

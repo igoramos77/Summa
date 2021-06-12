@@ -353,15 +353,15 @@ function init($chart) {
           yAxes: [{
             gridLines: {
               lineWidth: 1,
-              color: Charts.colors.gray[900],
-              zeroLineColor: Charts.colors.gray[900]
+              color: '#2f487180',
+              zeroLineColor: '#2f487180',
             },
             ticks: {
               callback: function(value) {
                 return value;
               },
               min: 0,
-              stepSize: 1,
+              stepSize: 10,
               display: true,
             }
           }]
@@ -408,19 +408,51 @@ function init($chart) {
 
   var BarsChart = (function() {
 
+    //Gráfico Histórico de envios
 	var $chart = $('#chart-bars');
 
 	function initChart($chart) {
 
 		var ordersChart = new Chart($chart, {
 			type: 'bar',
+			options: {
+              scales: {
+                yAxes: [{
+                  gridLines: {
+                    lineWidth: 1,
+                    color: '#b4bac890',
+                    zeroLineColor: '#b4bac890',
+                  },
+                  ticks: {
+                    callback: function(value) {
+                      return value;
+                    },
+                    min: 0,
+                    stepSize: 1,
+                    display: true,
+                  }
+                }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: function(item, data) {
+                    var label = [data.datasets[item.datasetIndex].label || ''];
+                    var yLabel = item.yLabel;
+                    var content = '';
+
+                    content += `Total de envios: ${yLabel}`;
+                    return content;
+                  }
+                }
+              }
+            },
 			data: {
 				labels: [{%for label in data_graph_months%}'{{label.date|date:'M'}}',{% endfor %}],
 				datasets: [{
 					label: `Qtd. envios`,
 					data: [{%for label in data_graph_months%}'{{label.total}}',{% endfor %}]
 				}]
-			}
+			},
 		});
 
 		$chart.data('chart', ordersChart);

@@ -55,11 +55,11 @@ class IndexView(TemplateView):
                                                         .values('categoria__macroatividades', 'count')[:5]
 
         context['data_graph_months'] = AtividadeComplementar.objects \
-                                    .extra({"date": """strftime('%%m/%%Y', create_at)"""}) \
-                                    .filter(usuario=context['current_user']) \
-                                    .annotate(month=ExtractMonth('create_at')).order_by() \
-                                    .values('date') \
-                                    .annotate(total=Count('*')) \
+            .extra({"date": """strftime('%%m/%%Y', create_at)"""}) \
+            .filter(usuario=context['current_user'], carga_horaria_integralizada__gt=0) \
+            .annotate(month=ExtractMonth('create_at')).order_by() \
+            .values('date') \
+            .annotate(total=Count('*')) \
 
         for test in context['data_graph_months']:
             test['date'] = datetime.strptime(test['date'], '%m/%Y')

@@ -13,4 +13,3 @@ class ProfileForm(ModelForm):
         model = Usuario
         #   fields = ['matricula', 'first_name', 'last_name', 'email', 'foto', 'curso']
         fields = '__all__'
-

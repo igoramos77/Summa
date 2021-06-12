@@ -64,7 +64,17 @@ class IndexView(TemplateView):
         for test in context['data_graph_months']:
             test['date'] = datetime.strptime(test['date'], '%m/%Y')
 
-        #form
+        context['data_graph_hours'] = AtividadeComplementar.objects\
+            .extra({"date": """strftime('%%m/%%Y', create_at)"""}) \
+            .filter(usuario=context['current_user'], carga_horaria_integralizada__gt=0) \
+            .annotate(month=ExtractMonth('create_at')).order_by() \
+            .values('date') \
+            .annotate(total=Sum('carga_horaria_integralizada'))
+
+        for test in context['data_graph_hours']:
+            test['date'] = datetime.strptime(test['date'], '%m/%Y')
+
+        #   form
         context['form_add_atividade_complementar'] = AtividadeComplementarForm() 
 
         return context

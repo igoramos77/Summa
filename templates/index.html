@@ -150,7 +150,9 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-light text-uppercase ls-1 mb-1">Visão geral</h6>
-                  <h5 class="h3 text-white mb-0">Histórico de envios</h5>                  
+                  <h5 class="h3 text-white mb-0">Total de horas integralizadas</h5>
+                  <div>
+                  </div>
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
@@ -178,7 +180,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-muted ls-1 mb-1">Mês a mês</h6>
-                  <h5 class="h3 mb-0">Total de horas</h5>
+                  <h5 class="h3 mb-0">Histórico de envios</h5>
                 </div>
               </div>
             </div>
@@ -371,17 +373,17 @@ function init($chart) {
               var yLabel = item.yLabel;
               var content = '';
 
-              content += `Envios: ${yLabel}`;
+              content += `Total de horas: ${yLabel}`;
               return content;
             }
           }
         }
       },
       data: {
-        labels: [{%for label in data_graph_months%}'{{label.date|date:'M'}}',{% endfor %}],
+        labels: [{%for label in data_graph_hours%}'{{label.date|date:'M'}}',{% endfor %}],
         datasets: [{
           label: 'Envios',
-          data: [{%for label in data_graph_months%}'{{label.total}}',{% endfor %}]
+          data: [{%for label in data_graph_hours%}'{{label.total}}',{% endfor %}]
         }]
       }
     });
@@ -400,7 +402,37 @@ function init($chart) {
   }
 
   })();
-</script> 
+</script>
+
+<script>
+
+  var BarsChart = (function() {
+
+	var $chart = $('#chart-bars');
+
+	function initChart($chart) {
+
+		var ordersChart = new Chart($chart, {
+			type: 'bar',
+			data: {
+				labels: [{%for label in data_graph_months%}'{{label.date|date:'M'}}',{% endfor %}],
+				datasets: [{
+					label: `Qtd. envios`,
+					data: [{%for label in data_graph_months%}'{{label.total}}',{% endfor %}]
+				}]
+			}
+		});
+
+		$chart.data('chart', ordersChart);
+	}
+
+	if ($chart.length) {
+		initChart($chart);
+	}
+
+})();
+
+</script>
   
 
   {% for atividade in list_atividades_complementares %}

@@ -211,5 +211,5 @@ class PerfilView(FormView):
             form.save()
             messages.success(self.request, 'Perfil autalizado com sucesso! 👌', extra_tags='success')
             return super(PerfilView, self).form_valid(form)
-        messages.error(self.request, 'Poxa, algo deu errado. 😢', extra_tags='danger')
+        messages.error(self.request, self.request, extra_tags='danger')
         return super(PerfilView, self).form_valid(form)

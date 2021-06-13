@@ -1,13 +1,61 @@
+<style>
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: 'Escolha sua foto de perfil';
+}
+.sbtr {
+    margin-top: 2rem;
+}
+</style>
+<!--
 <form method="POST" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form_edit_profile.as_p }}
     <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Atualizar perfil!</button>
 </form>
+-->
 
-{% if messages %}
-    {% for m in messages %}
-        <div class="pulse alert alert-{{ m.extra_tags }}">
-            <strong>{{ m }}</strong>
+<form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h6 class="heading-small text-muted mb-4">Informações pessoais</h6>
+    <div class="pl-lg-4">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label" for="id_first_name">Matrícula</label>
+            <input type="text" id="id_first_name" name="first_name" maxlength="55" class="form-control" value="{{user.matricula}}" readonly disabled required>
+          </div>
         </div>
-    {% endfor %}
-{% endif %}
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="form-control-label" for="id_first_name">Nome</label>
+            <input type="text" id="id_first_name" name="first_name" maxlength="55" class="form-control" value="{{user.first_name}}" required>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label" for="input-last-name">Sobrenome</label>
+            <input type="text" name="last_name" id="input-last-name" class="form-control" maxlength="155" value="{{user.last_name}}" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label class="form-control-label" for="id_email">E-mail</label>
+            <input type="email" name="email" id="id_email" class="form-control" value="{{user.email}}" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+    <div class="col-lg-12">
+        <label class="form-control-label" for="id_foto">Foto do perfil</label>
+         <div class="custom-file">
+            <input type="file" class="custom-file-input" id="id_foto" name="foto" lang="en" accept="image/*">
+            <label class="custom-file-label" for="id_foto"></label>
+        </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary sbtr"><i class="ni ni-send mr-2"></i> Atualizar perfil!</button>
+</form>

@@ -1,12 +1,24 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.contrib.auth import admin as auth_admin
+
+from summa.forms import UserChangeForm, UserCreationForm
+
 from summa import models
+
+from summa.models import Usuario
 
 
 @admin.register(models.Usuario)
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('id', 'matricula', 'get_full_name', 'create_at')
+class UsuarioAdmin(auth_admin.UserAdmin):
+    form = UserChangeForm
+    add_form = UserCreationForm
+    model = Usuario
+    list_display = ('id', 'matricula')
+    fieldsets = auth_admin.UserAdmin.fieldsets + (
+        ("Informações Pessoais", {"fields": ("external_id", "matricula", "foto", "curso")}),
+    )
 
 
 @admin.register(models.Estado)

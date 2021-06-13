@@ -101,12 +101,10 @@ class Curso(models.Model):
         return f"{self.nome}"
 
 
-#   class Usuario(models.Model):
 class Usuario(AbstractUser):
     external_id = models.UUIDField('Hash Usuário', default=uuid4,)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    username = None
     first_name = models.CharField('Nome', max_length=55)
     last_name = models.CharField('Sobrenome', max_length=155)
     matricula = models.CharField(unique=True, max_length=55)

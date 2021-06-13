@@ -12,7 +12,7 @@ from datetime import datetime
 
 from summa.models import Usuario, AtividadeComplementar, Curso
 
-from summa.forms import AtividadeComplementarForm, ProfileForm
+from summa.forms import AtividadeComplementarForm, ProfileForm, UserChangeForm
 
 
 def errorlog(request):
@@ -174,7 +174,7 @@ class SubmeterCertificadoView(FormView):
 
 class PerfilView(FormView):
     template_name = 'perfil.html'
-    form_class = ProfileForm
+    form_class = UserChangeForm
     success_url = reverse_lazy('perfil')
 
     def get_context_data(self, **kwargs):
@@ -201,7 +201,8 @@ class PerfilView(FormView):
             context['percent_conslusion'] = 0
 
         #   Profile form
-        context['form_edit_profile'] = ProfileForm(instance=context['current_user'])
+        context['form_edit_profile'] = UserChangeForm(instance=self.request.user)
+
         return context
 
     def form_valid(self, form, *args, **kwargs):
@@ -211,5 +212,5 @@ class PerfilView(FormView):
         return super(PerfilView, self).form_valid(form, *args, **kwargs)
 
     def form_invalid(self, form, *args, **kwargs):
-        messages.error(self.request, 'Ops! Algo deu errado. 😢', extra_tags='danger')
+        messages.error(self.request, self.request, extra_tags='danger')
         return super(PerfilView, self).form_invalid(form, *args, **kwargs)

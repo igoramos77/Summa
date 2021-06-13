@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.contrib.auth import forms
 from summa.models import AtividadeComplementar, Usuario
 
 
@@ -13,3 +14,13 @@ class ProfileForm(ModelForm):
         model = Usuario
         #   fields = ['matricula', 'first_name', 'last_name', 'email', 'foto', 'curso']
         fields = '__all__'
+
+
+class UserChangeForm(forms.UserChangeForm):
+    class Meta(forms.UserChangeForm.Meta):
+        model = Usuario
+
+
+class UserCreationForm(forms.UserCreationForm):
+    class Meta(forms.UserCreationForm.Meta):
+        model = Usuario

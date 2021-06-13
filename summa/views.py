@@ -201,16 +201,15 @@ class PerfilView(FormView):
             context['percent_conslusion'] = 0
 
         #   Profile form
-        context['form_edit_profile'] = UserChangeForm(instance=self.request.user)
+        context['form_edit_profile'] = UserChangeForm(self.request.POST or None, instance=self.request.user)
 
         return context
 
-    def form_valid(self, form, *args, **kwargs):
-        instance = form.save(commit=False)
-        instance.save()
-        messages.success(self.request, 'Perfil autalizado com sucesso! 👌', extra_tags='success')
-        return super(PerfilView, self).form_valid(form, *args, **kwargs)
-
-    def form_invalid(self, form, *args, **kwargs):
-        messages.error(self.request, self.request, extra_tags='danger')
-        return super(PerfilView, self).form_invalid(form, *args, **kwargs)
+    def post(self, *args, **kwargs):
+        form = UserChangeForm(self.request.POST or None, self.request.FILES, instance=self.request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(self.request, 'Perfil autalizado com sucesso! 👌', extra_tags='success')
+            return super(PerfilView, self).form_valid(form)
+        messages.error(self.request, 'Poxa, algo deu errado. 😢', extra_tags='danger')
+        return super(PerfilView, self).form_valid(form)

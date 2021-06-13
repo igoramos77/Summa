@@ -30127,6 +30127,11 @@ thead tr {
     cursor: pointer;
 }
 
+.btn-change {
+  border-radius: 0 0 5px 5px;
+  padding: 1rem 0;
+}
+
 
 /* MOBILE */
 @media (max-width: 480px) {

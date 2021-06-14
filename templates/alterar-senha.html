@@ -34,17 +34,11 @@
     {% include 'partials/navbar.html' %}
     <!-- end navbar -->
 
-    <div class="header pb-6 d-flex align-items-center" style="min-height: 450px;">
+    <div class="header pb-6 d-flex align-items-center" style="min-height: 150px;">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
-        <div class="row">
-          <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Olá, {{user.first_name}}</h1>
-            <p class="text-white mt-0 mb-5">Você está no <strong>Summa</strong>. Software desenvolvido para o gerenciamento das atividades complementares dos alunos da <strong>{{user.curso.campus.instituicao}}.</strong></p>
-          </div>
-        </div>
       </div>
     </div>
     <!-- Page content -->
@@ -94,7 +88,6 @@
                 </div>
               </div>
             </div>
-            <a href="{% url 'alterar-senha' %}" class="btn btn-danger btn-change"><i class="ni ni-lock-circle-open"></i> Alterar Senha!</a>
           </div>
         </div>
 
@@ -110,12 +103,12 @@
             <div class="card-header">
               <div class="row align-items-center">
                 <div class="col-12">
-                  <h3 class="mb-0">Editar perfil </h3>
+                  <h3 class="mb-0">Alterar senha </h3>
                 </div>
               </div>
             </div>
             <div class="card-body">
-              {% include 'forms/form-edit-profile.html' %}
+              {% include 'forms/form-edit-password.html' %}
             </div>
           </div>
         </div>
@@ -124,33 +117,6 @@
       {% include 'partials/footer.html' %}
     </div>
   </div>
-
-  <!-- modal -->
-  <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Altere sua senha padrão!</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          {% include 'forms/form-edit-password.html' %}
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- end modal -->
 
   <!-- Scripts -->
     <!-- Core -->

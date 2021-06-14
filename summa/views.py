@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import TemplateView, FormView, ListView
+from django.contrib.auth.views import PasswordChangeView
 
 from django.db.models import Sum
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from django.db.models.functions import TruncMonth, ExtractDay, ExtractMonth, ExtractYear
 from django.db.models import Count
@@ -12,7 +13,7 @@ from datetime import datetime
 
 from summa.models import Usuario, AtividadeComplementar, Curso
 
-from summa.forms import AtividadeComplementarForm, ProfileForm, UserChangeForm
+from summa.forms import AtividadeComplementarForm, ProfileForm, UserChangeForm, ChangePassword
 
 
 def errorlog(request):
@@ -213,3 +214,12 @@ class PerfilView(FormView):
             return super(PerfilView, self).form_valid(form)
         messages.error(self.request, self.request, extra_tags='danger')
         return super(PerfilView, self).form_valid(form)
+
+
+class AlterarSenhaView(PasswordChangeView):
+    template_name = 'alterar-senha.html'
+    success_url = reverse_lazy('perfil')
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.INFO, 'Senha autalizada com sucesso! 👌', extra_tags='success')
+        return reverse('perfil')

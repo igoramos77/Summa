@@ -15,7 +15,7 @@ class UsuarioAdmin(auth_admin.UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     model = Usuario
-    list_display = ('id', 'matricula')
+    list_display = ('matricula', 'get_full_name', 'curso')
     fieldsets = auth_admin.UserAdmin.fieldsets + (
         ("Informações Pessoais", {"fields": ("external_id", "matricula", "foto", "curso")}),
     )

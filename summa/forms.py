@@ -6,13 +6,12 @@ from summa.models import AtividadeComplementar, Usuario
 class AtividadeComplementarForm(ModelForm):
     class Meta:
         model = AtividadeComplementar
-        fields = "__all__"
+        fields = ['usuario', 'curso', 'descricao', 'categoria', 'cnpj', 'empresa', 'carga_horaria_informada', 'certificado']
 
 
 class ProfileForm(ModelForm):
     class Meta:
         model = Usuario
-        #   fields = ['matricula', 'first_name', 'last_name', 'email', 'foto', 'curso']
         fields = '__all__'
 
 

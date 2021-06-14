@@ -8,17 +8,20 @@
 <!-- import do select com ajax abaixo -->
 {{ form.media.js }}
 
-<!-- <form method="POST" class="post-form" enctype="multipart/form-data">
+<!--
+<form method="POST" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form_add_atividade_complementar.as_p }}
     <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Enviar!</button>
-</form> -->
+</form>
+-->
 
 {% for m in messages %}
     <div class="pulse alert alert-{{ m.extra_tags }}">
         <strong>{{ m }}</strong>
     </div>
 {% endfor %}
+
 <div class="card-body">
     <form method="POST" class="post-form" enctype="multipart/form-data">
       {% csrf_token %}
@@ -44,7 +47,7 @@
           <div class="col-lg-12">
             <div class="form-group">
               <label class="form-control-label" for="descricao">Descrição*</label>
-              <input type="text" name="descricao" id="descricao" class="form-control" placeholder="Ex: Curso de Informática básica" required/>
+              <input type="text" name="descricao" id="descricao" class="form-control" placeholder="Ex: Curso de Informática básica" autofocus="" required/>
             </div>
           </div>
           <div class="col-lg-6">
@@ -75,18 +78,7 @@
               <input type="number" id="carga_horaria_informada" name="carga_horaria_informada" class="form-control" placeholder="Número de horas" required/>
             </div>
           </div>
-          <div class="col-lg-12 hide-inpts">
-            <div class="form-group">
-              <label class="form-control-label" for="carga_horaria_informada">Carga horária Integralizada</label>
-              <input disabled type="text" id="carga_horaria_integralizada" name="carga_horaria_integralizada" class="form-control" value="{{form.carga_horaria_integralizada.value}}" disabled>
-            </div>
-          </div>
-          <div class="col-lg-12 hide-inpts">
-            <div class="form-group">
-              <label class="form-control-label" for="id_justificativa">Carga horária Integralizada</label>
-              <textarea class="form-control" name="justificativa" id="id_justificativa" cols="30" rows="4" maxlength="500"></textarea>
-            </div>
-          </div>
+
           <div class="col-lg-10">
             <label class="form-control-label" for="carga_horaria_informada">Certificado*</label>
             <div class="custom-file">
@@ -94,22 +86,13 @@
               <label class="custom-file-label" for="certificado"></label>
             </div>
           </div>
-          <div class="col-lg-6 hide-inpts">
-            <label class="form-control-label" for="id_status">Status*</label>
-            <select name="status" id="id_status" class="form-control" required>
-              <option value="em validação" selected>em validação</option>
-            </select>
-          </div>
-          <div class="col-lg-6 hide-inpts">
-            <label class="form-control-label" for="id_status">active?*</label>
-            <input type="checkbox" name="is_active" id="id_is_active" checked required>
-          </div>
         </div>
       </div>
       <hr class="my-4">
       <button type="submit" class="btn btn-primary"><i class="ni ni-send mr-2"></i> Enviar certificado para análise!</button>
     </form>
   </div>
+
 
 <script>
   // ADD CLASS A TODOS OS INPUTS (STYLING)

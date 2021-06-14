@@ -1,6 +1,6 @@
 <style>
 .custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: 'Escolha sua foto de perfil';
+    content: none !important;
 }
 .sbtr {
     margin-top: 2rem;
@@ -46,16 +46,17 @@
           </div>
         </div>
       </div>
+        <div class="row">
+        <div class="col-lg-12">
+            <label class="form-control-label" for="id_foto">Foto do perfil</label>
+             <div class="custom-file">
+                <input type="file" class="custom-file-input" id="id_foto" name="foto" lang="en" accept="image/*">
+                <label class="custom-file-label" for="id_foto" style="height: 60px;"></label>
+            </div>
+        </div>
+    </div>
     </div>
     <hr class="my-4">
-    <div class="row">
-    <div class="col-lg-12">
-        <label class="form-control-label" for="id_foto">Foto do perfil</label>
-         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="id_foto" name="foto" lang="en" accept="image/*">
-            <label class="custom-file-label" for="id_foto"></label>
-        </div>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary sbtr"><i class="ni ni-badge mr-2"></i> Atualizar perfil!</button>
+
+    <button type="submit" class="btn btn-primary sbtr"><i class="ni ni-single-02 mr-2"></i> Atualizar perfil!</button>
 </form>

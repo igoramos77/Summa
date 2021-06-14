@@ -9,5 +9,5 @@ urlpatterns = [
     path('meus-envios/', MeusEnviosView.as_view(), name='meus-envios'),
     path('enviar-certificado/', SubmeterCertificadoView.as_view(), name='enviar-certificado'),
     path('perfil/', PerfilView.as_view(), name='perfil'),
-    path('alterar-senha/', AlterarSenhaView.as_view(), name='alterar-senha'),
+    path('perfil/alterar-senha/', AlterarSenhaView.as_view(), name='alterar-senha'),
 ]

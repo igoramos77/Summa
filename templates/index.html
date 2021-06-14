@@ -564,9 +564,12 @@ function init($chart) {
 
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="handleShowSupport()"><i class="ni ni-chat-round mr-2"></i> Precisa de suporte?</button>
-          <p>{{user.curso.campus.email}}</p>
+        <div class="modal-footer" style="justify-content: start;">
+          <button type="button" class="btn btn-primary" onclick="$('#sppt-{{forloop.counter}}').fadeIn()"><i class="ni ni-chat-round mr-2"></i> Precisa de suporte?</button>
+          <div id="sppt-{{forloop.counter}}" style="display:none;margin-top: 1rem;">
+            <a href="mailto:{{user.curso.campus.email}}">{{user.curso.campus.email}}</a><br />
+            <a href="mailto:{{user.curso.campus.email}}">{{user.curso.campus.telefone}}</a>
+          </div>
         </div>
       </div>
     </div>

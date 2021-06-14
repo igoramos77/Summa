@@ -1,0 +1,111 @@
+<!-- start Modal (Detalhes da atividade) -->
+  <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            {{atividade.descricao}}
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-grid-datails">
+
+            <div class="row">
+
+              <div class="col-12">
+                <h5>Descrição</h5>
+                <p>{{atividade.descricao}}</p>
+              </div>
+
+              <div class="col-12">
+                <h5>Categoria</h5>
+                <p>{{atividade.categoria}}</p>
+             </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-6">
+                <h5>Instituição</h5>
+                <p>{{atividade.empresa}}</p>
+              </div>
+              <div class="col-6">
+                <h5>Cnpj</h5>
+                <p>{{atividade.cnpj}}</p>
+              </div>
+            </div>
+
+
+            {% if atividade.justificativa %}
+            <div class="row">
+              <div class="col-12">
+                <h5>Justificativa</h5>
+                <p>{{atividade.justificativa}}</p>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="row">
+              <div class="col-6">
+                <h5>Certificado</h5>
+                <p>
+                  <a href="{{atividade.certificado.url}}" target="_blank">visualizar certificado</a>
+                </p>
+              </div>
+
+              <div class="col-6">
+                <h5>Status</h5>
+                <p>
+                  {% if atividade.status == 'aprovado' %}
+                  <span class="status status-aproved">{{atividade.status}}</span>
+                  {% endif %}
+
+                  {% if atividade.status == 'recusado' %}
+                  <span class="status status-declined">{{atividade.status}}</span>
+                  {% endif %}
+
+                  {% if atividade.status == 'em validação' %}
+                  <span class="status status-pending">{{atividade.status}}</span>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <h5>Data de cadastro</h5>
+                <p>
+                  {{atividade.create_at}}
+                </p>
+              </div>
+
+              {% if atividade.create_at != atividade.update_at %}
+              <div class="col-6">
+                <h5>Última atualização</h5>
+                <p>
+                  {{atividade.update_at}}
+                </p>
+              </div>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer" style="justify-content: start;">
+          <button type="button" class="btn btn-primary" onclick="$('#sppt-{{forloop.counter}}').fadeIn()"><i class="ni ni-chat-round mr-2"></i> Precisa de suporte?</button>
+          <div class="sppt" id="sppt-{{forloop.counter}}">
+            <p class="link-support">
+              <a href="mailto:{{user.curso.campus.email}}"><i class="ni ni-email-83"></i> {{user.curso.campus.email}}</a><br />
+            </p>
+            <p class="link-support">
+              <a href="mailto:{{user.curso.campus.email}}"><i class="ni ni-mobile-button"></i> {{user.curso.campus.telefone}}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end Modal -->

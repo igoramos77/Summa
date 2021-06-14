@@ -30132,6 +30132,21 @@ thead tr {
   padding: 1rem 0;
 }
 
+.sppt {
+    display:none;
+    margin-top: 1.4rem;
+}
+.link-support {
+    line-height: 0.3 !important;
+}
+.link-support a {
+    display: flex;
+    align-items: center;
+}
+.link-support a i {
+    margin-right: .75rem
+}
+
 
 /* MOBILE */
 @media (max-width: 480px) {

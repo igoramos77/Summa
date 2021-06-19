@@ -1,0 +1,126 @@
+/*
+ALTERAR: 5e72e3 -> Cor do topo
+ALTERAR: 5e72e3 -> Cor dos links e cabeçalhos
+*/
+
+.logo {
+   width: 200px;
+   height: auto;
+}
+
+.breadcrumbs {
+    margin-bottom: 1rem;
+}
+
+.toggle-nav-sidebar {
+    border: none !important;
+}
+
+#nav-sidebar {
+border-right: none;
+}
+
+.login #header h1 {
+    margin: 0;
+}
+
+#branding h1,
+#branding h1 a,
+#branding h1 a:link,
+#branding h1 a:visited {
+    color: #FFFFFF;
+
+}
+
+#header {
+    background: #5e72e3;
+    color: #FFFFFF;
+}
+
+#user-tools a:focus, #user-tools a:hover {
+    border-bottom-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+a:link, a:visited {
+    color: #5e72e3;
+}
+.module {
+    border: 1px solid #f9f9f9 !important;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #5e72e3;
+    color: #FFFFFF;
+}
+
+div.breadcrumbs {
+    background: #5e72e3;
+    color: #FFFFFF;
+}
+
+.paginator a:link, .paginator a:visited {
+    background: #5e72e3 !important;
+    color: #FFFFFF;
+}
+
+.paginator a:hover {
+    background: #5e72e3 !important;
+    color: #FFFFFF;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: #5e72e3;
+}
+
+.button.default:active,
+input[type=submit].default:active,
+.button.default:focus,
+input[type=submit].default:focus,
+.button.default:hover,
+input[type=submit].default:hover {
+    background: #5e72e3;
+}
+
+.object-tools a:focus, .object-tools a:hover {
+    background-color: #5e72e3;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #5e72e3;
+    color: #FFFFFF;
+}
+.button:active,
+input[type=submit]:active,
+input[type=button]:active,
+.button:focus,
+input[type=submit]:focus,
+input[type=button]:focus,
+.button:hover,
+input[type=submit]:hover,
+input[type=button]:hover {
+    background-color: #5e72e3;
+}
+
+#changelist-filter li.selected a {
+    color: #5e72e3 !important;
+}
+
+#changelist-filter a:focus,
+#changelist-filter a:hover,
+#changelist-filter li.selected a:focus,
+#changelist-filter li.selected a:hover {
+    color: #5e72e3 !important;
+}
+
+.selector-chosen h2 {
+    background: #5e72e3 !important;
+    color: #FFFFFF;
+}
+
+a.active.selector-chooseall:focus,
+a.active.selector-clearall:focus,
+a.active.selector-chooseall:hover,
+a.active.selector-clearall:hover {
+    color: #5e72e3 !important;
+}

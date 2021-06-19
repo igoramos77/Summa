@@ -11,7 +11,7 @@
   <meta name="author" content="Igor Brown">
   <title>Summa - Perfil</title>
   <!-- Favicon -->
-  <link rel="icon" href="{% static 'brand/favicon.png' %}" type="image/png">
+  <link rel="icon" href="{% static 'img/brand/favicon.png' %}" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -47,9 +47,9 @@
         <div class="col-xl-4 order-xl-2">
           <div class="card card-profile" style="overflow: hidden;">
             {% if user.foto %}
-            <img style="background: url({{user.foto.url}})" src="" class="card-img-top bg-perfil">
+            <img style="background: url({{user.foto.url}}); height: 173px;" src="" class="card-img-top bg-perfil">
             {%else%}
-            <img style="background: url({% static 'img/square.png' %}); filter: none !important;" src="" class="card-img-top bg-perfil">
+            <img style="background: url({% static 'img/square.png' %}); height: 173px; filter: none !important;" src="" class="card-img-top bg-perfil">
             {% endif %}
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">

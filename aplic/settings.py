@@ -116,6 +116,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGOUT_REDIRECT_URL = '/'
+
 AUTH_USER_MODEL = 'summa.Usuario'
 ACCOUNT_USERNAME_REQUIRED = False
 

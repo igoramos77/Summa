@@ -70,9 +70,33 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @action(detail=True, methods=['GET'], url_path='total-horas-integralizadas')
-    def total(self, request, pk=None):
+    def total_ingralizadas(self, request, pk=None):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT SUM(carga_horaria_integralizada) as total FROM summa_atividadecomplementar WHERE usuario_id = %s", [pk])
+            cursor.execute("SELECT SUM(carga_horaria_integralizada) as total_horas_integralizadas FROM summa_atividadecomplementar WHERE usuario_id = %s", [pk])
+            row = dictfetchall(cursor)
+
+        return Response(row)
+
+    @action(detail=True, methods=['GET'], url_path='total-atividades-submetidas')
+    def total_submetidas(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT COUNT(id) as atividades_submetidas FROM summa_atividadecomplementar WHERE usuario_id = %s", [pk])
+            row = dictfetchall(cursor)
+
+        return Response(row)
+
+    @action(detail=True, methods=['GET'], url_path='total-aguardando-validacao')
+    def aguardando_validacao(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT COUNT(id) as atividades_aguardando_validacao FROM summa_atividadecomplementar WHERE status = 'em_validação' AND usuario_id = %s", [pk])
+            row = dictfetchall(cursor)
+
+        return Response(row)
+
+    @action(detail=True, methods=['GET'], url_path='total-recusadas')
+    def aguardando_recusadas(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT COUNT(id) as atividades_recusadas FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s", [pk])
             row = dictfetchall(cursor)
 
         return Response(row)

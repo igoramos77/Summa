@@ -2,6 +2,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from django.db import connection
+
 from summa.models import (AtividadeComplementar, Campus,
                           CategoriaAtividadeComplementar,
                           Curso, Estado, Instituicao, Usuario)
@@ -48,6 +50,15 @@ class InstituicaoViewSet(viewsets.ModelViewSet):
     serializer_class = InstituicaoSerializer
 
 
+def dictfetchall(cursor):
+    #    Return all rows from a cursor as a dict
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
+
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
@@ -58,10 +69,10 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         serializer = AtividadeComplementarSerializer(atividades_complementares.usuario.all(), many=True)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['GET'])
-    def count(self, request, pk=None):
-        usuario_id = pk
-        queryset = AtividadeComplementar.objects.raw(
-            "SELECT * FROM summa_atividadecomplementar WHERE usuario_id = %s", [usuario_id])
-        serializer = AtividadeComplementarSerializer(queryset, many=True)
-        return Response(serializer.data)
+    @action(detail=True, methods=['GET'], url_path='total-horas-integralizadas')
+    def total(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT SUM(carga_horaria_integralizada) as total FROM summa_atividadecomplementar WHERE usuario_id = %s", [pk])
+            row = dictfetchall(cursor)
+
+        return Response(row)

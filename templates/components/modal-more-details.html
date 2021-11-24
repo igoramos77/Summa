@@ -60,15 +60,15 @@
                 <h5>Status</h5>
                 <p>
                   {% if atividade.status == 'aprovado' %}
-                  <span class="status status-aproved">{{atividade.status}}</span>
+                  <span class="status status-aproved">aprovado</span>
                   {% endif %}
 
                   {% if atividade.status == 'recusado' %}
-                  <span class="status status-declined">{{atividade.status}}</span>
+                  <span class="status status-declined">recusado</span>
                   {% endif %}
 
-                  {% if atividade.status == 'em validação' %}
-                  <span class="status status-pending">{{atividade.status}}</span>
+                  {% if atividade.status == 'em_validação' %}
+                  <span class="status status-pending">em validação</span>
                   {% endif %}
                 </p>
               </div>

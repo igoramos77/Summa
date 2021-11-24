@@ -151,11 +151,11 @@ class AtividadeComplementar(models.Model):
     justificativa = models.TextField('justificativa', max_length=500, blank=True, null=True)
     certificado = models.FileField('Certificado', upload_to=get_file_path)
     STATUS = (
-        ('em validação', 'em validação'),
+        ('em_validação', 'em validação'),
         ('aprovado', 'aprovado'),
         ('recusado', 'recusado'),
     )
-    status = models.CharField('Status', default='em validação', max_length=20, choices=STATUS)
+    status = models.CharField('Status', default='em_validação', max_length=20, choices=STATUS)
     is_active = models.BooleanField('Ativo', default=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)

@@ -237,7 +237,7 @@
                         0
                       {% endif %}
 
-                      {% if atividade.status == 'em validação' %}
+                      {% if atividade.status == 'em_validação' %}
                         -
                       {% endif %}
                     </td>
@@ -248,15 +248,15 @@
 
                     <td class="text-center">
                       {% if atividade.status == 'aprovado' %}
-                        <span class="status-aproved" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">{{atividade.status}}</span>
+                        <span class="status-aproved" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">aprovado</span>
                       {% endif %}
 
                       {% if atividade.status == 'recusado' %}
-                        <span class="status-declined" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">{{atividade.status}}</span>
+                        <span class="status-declined" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">recusado</span>
                       {% endif %}
 
-                      {% if atividade.status == 'em validação' %}
-                        <span class="status-pending" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">{{atividade.status}}</span>
+                      {% if atividade.status == 'em_validação' %}
+                        <span class="status-pending" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">em validação</span>
                       {% endif %}
                     </td>
                   </tr>

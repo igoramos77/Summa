@@ -96,7 +96,21 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['GET'], url_path='total-recusadas')
     def aguardando_recusadas(self, request, pk=None):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT COUNT(id) as atividades_recusadas FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s", [pk])
+            cursor.execute("SELECT COUNT(id)"
+                           " as atividades_recusadas FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s", [pk])
+            row = dictfetchall(cursor)
+
+        return Response(row)
+
+    @action(detail=True, methods=['GET'], url_path='total-statistics')
+    def all(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT"
+                           " (SELECT COUNT(id) FROM summa_atividadecomplementar WHERE status = 'aprovado' AND usuario_id = %s) as total_horas_integralizadas,"
+                           " (SELECT COUNT(id) FROM summa_atividadecomplementar WHERE usuario_id = %s) as total_atividades_submetidas,"
+                           " (SELECT COUNT(id) FROM summa_atividadecomplementar WHERE status = 'em_validação' AND usuario_id = %s) as total_atividades_aguardando_validacao,"
+                           " (SELECT COUNT(id) FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s) as total_atividades_recusadas"
+                           " FROM summa_atividadecomplementar LIMIT 1", [pk, pk, pk, pk])
             row = dictfetchall(cursor)
 
         return Response(row)

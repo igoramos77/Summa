@@ -44,7 +44,6 @@ class InstituicaoSerializer(serializers.ModelSerializer):
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
-    curso = CursoSerializer(many=False, read_only=True)
 
     class Meta:
         model = Usuario

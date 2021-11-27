@@ -42,7 +42,7 @@ class IndexView(TemplateView):
 
         context['qtd_min_horas'] = Curso.objects.values_list('qtd_horas_conclusao', flat=True).filter(usuario__matricula=context['current_user']).first()
 
-        if context['total_horas_integralizadas'] is not None:
+        if context['total_horas_integralizadas'] and context['qtd_min_horas'] is not None:
             context['percent_conslusion'] = context['total_horas_integralizadas'] * 100 / context['qtd_min_horas']
         else:
             context['percent_conslusion'] = 0
@@ -76,7 +76,7 @@ class IndexView(TemplateView):
             test['date'] = datetime.strptime(test['date'], '%m/%Y')
 
         #   form
-        context['form_add_atividade_complementar'] = AtividadeComplementarForm() 
+        context['form_add_atividade_complementar'] = AtividadeComplementarForm()
 
         return context
 
@@ -157,7 +157,7 @@ class SubmeterCertificadoView(FormView):
             context['percent_conslusion'] = context['total_horas_integralizadas'] * 100 / context['qtd_min_horas']
         else:
             context['percent_conslusion'] = 0
-        
+
         #   form
         context['form_add_atividade_complementar'] = AtividadeComplementarForm()
         return context

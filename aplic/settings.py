@@ -67,14 +67,12 @@ WSGI_APPLICATION = 'aplic.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 """
 # Postgre local (criar banco e usuário previamente)
@@ -128,13 +126,17 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #   'rest_framework.authentication.BasicAuthentication',
+        #   'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': (
         #   'rest_framework.permissions.IsAdminUser',
     ),
 }
+
+# 50mb
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 USE_DJANGO_JQUERY = True
 

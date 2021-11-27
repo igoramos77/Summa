@@ -1,6 +1,7 @@
 from rest_framework import viewsets
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from django.db import connection
 
@@ -11,7 +12,7 @@ from summa.models import (AtividadeComplementar, Campus,
 from .serializers import (AtividadeComplementarSerializer, CampusSerializer,
                           CategoriaAtividadeComplementarSerializer, CursoSerializer,
                           EstadoSerializer,
-                          InstituicaoSerializer, UsuarioSerializer)
+                          InstituicaoSerializer, UsuarioSerializer, UserSerializer)
 
 
 class AtividadeComplementarViewSet(viewsets.ModelViewSet):
@@ -60,6 +61,8 @@ def dictfetchall(cursor):
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
+    #   permission_classes = (IsAuthenticated, )
+
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
@@ -69,10 +72,21 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         serializer = AtividadeComplementarSerializer(atividades_complementares.usuario.all(), many=True)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'], url_path='ultimas-atividades')
+    def ultimas_atividades(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT * FROM summa_atividadecomplementar WHERE usuario_id = %s ORDER BY id DESC LIMIT 6", [pk])
+            row = dictfetchall(cursor)
+
+        return Response(row)
+
     @action(detail=True, methods=['GET'], url_path='total-horas-integralizadas')
     def total_ingralizadas(self, request, pk=None):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT SUM(carga_horaria_integralizada) as total_horas_integralizadas FROM summa_atividadecomplementar WHERE usuario_id = %s", [pk])
+            cursor.execute(
+                "SELECT SUM(carga_horaria_integralizada) as total_horas_integralizadas FROM summa_atividadecomplementar WHERE usuario_id = %s",
+                [pk])
             row = dictfetchall(cursor)
 
         return Response(row)
@@ -80,7 +94,9 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['GET'], url_path='total-atividades-submetidas')
     def total_submetidas(self, request, pk=None):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT COUNT(id) as atividades_submetidas FROM summa_atividadecomplementar WHERE usuario_id = %s", [pk])
+            cursor.execute(
+                "SELECT COUNT(id) as atividades_submetidas FROM summa_atividadecomplementar WHERE usuario_id = %s",
+                [pk])
             row = dictfetchall(cursor)
 
         return Response(row)
@@ -88,7 +104,9 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['GET'], url_path='total-aguardando-validacao')
     def aguardando_validacao(self, request, pk=None):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT COUNT(id) as atividades_aguardando_validacao FROM summa_atividadecomplementar WHERE status = 'em_validação' AND usuario_id = %s", [pk])
+            cursor.execute(
+                "SELECT COUNT(id) as atividades_aguardando_validacao FROM summa_atividadecomplementar WHERE status = 'em_validação' AND usuario_id = %s",
+                [pk])
             row = dictfetchall(cursor)
 
         return Response(row)
@@ -97,7 +115,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     def aguardando_recusadas(self, request, pk=None):
         with connection.cursor() as cursor:
             cursor.execute("SELECT COUNT(id)"
-                           " as atividades_recusadas FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s", [pk])
+                           " as atividades_recusadas FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s",
+                           [pk])
             row = dictfetchall(cursor)
 
         return Response(row)
@@ -106,12 +125,34 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     def all_user_statistics(self, request, pk=None):
         with connection.cursor() as cursor:
             cursor.execute(
-               "SELECT "
-               "(SELECT SUM(carga_horaria_integralizada) FROM summa_atividadecomplementar WHERE status = 'aprovado' AND usuario_id = %s) as total_horas_integralizadas, "
-               "(SELECT COUNT(id) FROM summa_atividadecomplementar WHERE usuario_id = %s) as total_atividades_submetidas, "
-               "(SELECT COUNT(id) FROM summa_atividadecomplementar WHERE status = 'em_validação' AND usuario_id = %s) as total_atividades_aguardando_validacao, "
-               "(SELECT COUNT(id) FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s) as total_atividades_recusadas "
-               "FROM summa_atividadecomplementar LIMIT 1", [pk, pk, pk, pk])
+                "SELECT "
+                "(SELECT SUM(carga_horaria_integralizada) FROM summa_atividadecomplementar WHERE status = 'aprovado' AND usuario_id = %s) as total_horas_integralizadas, "
+                "(SELECT COUNT(id) FROM summa_atividadecomplementar WHERE usuario_id = %s) as total_atividades_submetidas, "
+                "(SELECT COUNT(id) FROM summa_atividadecomplementar WHERE status = 'em_validação' AND usuario_id = %s) as total_atividades_aguardando_validacao, "
+                "(SELECT COUNT(id) FROM summa_atividadecomplementar WHERE status = 'recusado' AND usuario_id = %s) as total_atividades_recusadas, "
+                "(SELECT qtd_horas_conclusao FROM summa_curso sc INNER JOIN summa_usuario su ON su.curso_id = sc.id WHERE su.id = %s) as qtd_horas_necessarias "
+                "LIMIT 1", [pk, pk, pk, pk, pk])
             row = dictfetchall(cursor)
 
         return Response(row)
+
+    @action(detail=True, methods=['GET'], url_path='total-horas-necessarias')
+    def horas_necessarias(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT qtd_horas_conclusao FROM summa_curso sc INNER JOIN summa_usuario su ON su.curso_id = sc.id WHERE su.id = %s",
+                [pk])
+            row = dictfetchall(cursor)
+
+        return Response(row)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated, )
+
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+
+    def get_queryset(self):
+        return Usuario.objects.filter(id=self.request.user.id)
+

@@ -29,6 +29,7 @@ html5lib==1.1
 importlib-metadata==2.1.1
 joblib==1.0.1
 nltk==3.6.2
+permission==0.4.1
 Pillow==8.1.2
 pipenv==2020.11.15
 psycopg2==2.8.6
@@ -46,6 +47,7 @@ textblob==0.15.3
 tinycss2==1.1.0
 toml==0.10.2
 tqdm==4.60.0
+utils==1.0.1
 virtualenv==20.4.6
 virtualenv-clone==0.5.4
 WeasyPrint==52.5
